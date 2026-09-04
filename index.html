@@ -1,0 +1,3040 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Radar de Campanhas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #06060a;
+    --bg-grad: radial-gradient(ellipse 1000px 620px at 18% -8%, rgba(139,92,246,.16), transparent 60%),
+                radial-gradient(ellipse 900px 560px at 100% 0%, rgba(192,132,252,.10), transparent 55%);
+    --surface: #111017;
+    --surface-2: #17151f;
+    --border: #272432;
+    --border-soft: #1c1a24;
+    --text: #f5f4f8;
+    --text-dim: #b3aec4;
+    --text-faint: #6f6a82;
+    --accent: #8b5cf6;
+    --accent-2: #c084fc;
+    --accent-soft: rgba(139,92,246,.16);
+    --accent-strong: #ad8dfa;
+    --ok: #34d399;
+    --ok-bg: rgba(52,211,153,.14);
+    --ok-border: rgba(52,211,153,.35);
+    --warn: #fbbf24;
+    --warn-bg: rgba(251,191,36,.14);
+    --warn-border: rgba(251,191,36,.35);
+    --danger: #f87171;
+    --danger-bg: rgba(248,113,113,.14);
+    --danger-border: rgba(248,113,113,.35);
+    --danger-strong: #fca5a5;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 18px 40px -18px rgba(0,0,0,.8);
+    --glow: 0 0 0 1px rgba(139,92,246,.35), 0 10px 30px -8px rgba(139,92,246,.4);
+    --av-1: #8b5cf6;
+    --av-2: #d946ef;
+    --av-3: #6366f1;
+    --av-4: #c026d3;
+    color-scheme: dark;
+
+    /* Termômetro de urgência dos chamados */
+    --urgency-1: #34d399;
+    --urgency-1-bg: rgba(52,211,153,.14);
+    --urgency-2: #a3e635;
+    --urgency-2-bg: rgba(163,230,53,.14);
+    --urgency-3: #fbbf24;
+    --urgency-3-bg: rgba(251,191,36,.14);
+    --urgency-4: #f87171;
+    --urgency-4-bg: rgba(248,113,113,.14);
+
+    /* Verde água — filtro de status dos chamados (pendentes/recentes/concluídos) */
+    --teal: #2dd4bf;
+    --teal-bg: rgba(45,212,191,.12);
+    --teal-border: rgba(45,212,191,.32);
+    --teal-ink: #04211d;
+
+    /* Tamanho do card de loja (modo compacto, várias lojas na tela) */
+    --grid-min: 195px;
+    --grid-gap: 10px;
+    --card-pad: 10px 11px 7px;
+    --card-radius: 9px;
+    --card-gap: 7px;
+    --card-border-left: 3px;
+    --avatar-size: 24px;
+    --avatar-radius: 7px;
+    --avatar-font: 9.5px;
+    --badge-size: 11px;
+    --badge-font: 7px;
+    --title-font: 11px;
+    --meta-font: 9px;
+    --budget-label-font: 7.5px;
+    --budget-value-font: 9.5px;
+    --dot-size: 7px;
+    --dot-ring: 2px;
+    --list-gap: 5px;
+    --item-pad: 6px 8px;
+    --item-radius: 7px;
+    --item-gap: 4px;
+    --row-gap: 5px;
+    --platform-font: 10px;
+    --pill-font: 8px;
+    --pill-pad: 1px 5px;
+    --row2-font: 9.5px;
+    --note-font: 9px;
+    --actions-gap: 4px;
+    --actions-margin-top: 1px;
+    --action-btn-font: 9px;
+    --action-btn-pad: 3px 6px;
+    --action-btn-radius: 5px;
+    --edit-gap: 4px;
+    --edit-label-font: 8px;
+    --edit-input-font: 10px;
+    --edit-input-pad: 4px 6px;
+    --toggle-font: 9px;
+  }
+
+  /* Modo "loja única" (filtro ativo): volta ao tamanho original, maior */
+  .grid.single-store{
+    --grid-min: 320px;
+    --grid-gap: 16px;
+    --card-pad: 16px 18px 12px;
+    --card-radius: 14px;
+    --card-gap: 12px;
+    --card-border-left: 4px;
+    --avatar-size: 38px;
+    --avatar-radius: 10px;
+    --avatar-font: 14px;
+    --badge-size: 16px;
+    --badge-font: 9px;
+    --title-font: 16.5px;
+    --meta-font: 12px;
+    --budget-label-font: 9.5px;
+    --budget-value-font: 13px;
+    --dot-size: 10px;
+    --dot-ring: 3px;
+    --list-gap: 8px;
+    --item-pad: 10px 12px;
+    --item-radius: 10px;
+    --item-gap: 6px;
+    --row-gap: 8px;
+    --platform-font: 13px;
+    --pill-font: 10.5px;
+    --pill-pad: 2px 7px;
+    --row2-font: 12.5px;
+    --note-font: 12px;
+    --actions-gap: 6px;
+    --actions-margin-top: 2px;
+    --action-btn-font: 11px;
+    --action-btn-pad: 4px 8px;
+    --action-btn-radius: 6px;
+    --edit-gap: 6px;
+    --edit-label-font: 10px;
+    --edit-input-font: 12.5px;
+    --edit-input-pad: 6px 8px;
+    --toggle-font: 11.5px;
+  }
+
+  *{ box-sizing: border-box; }
+  html, body{ background: var(--bg); }
+  body{
+    margin:0;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    color: var(--text);
+    background: var(--bg-grad), var(--bg);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .mono{ font-family: 'IBM Plex Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  /* Fundo com rede de pontos conectados, no clima "tech" da marca */
+  #bgCanvas{
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+  }
+  .page{ position: relative; z-index: 1; }
+
+  a, button, input{ font-family: inherit; }
+  button{ cursor: pointer; }
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  .page{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px 64px;
+  }
+
+  /* ---------- Topbar ---------- */
+  .topbar{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 22px;
+  }
+  .brand{ display:flex; align-items:center; gap: 14px; }
+  .brand-mark{
+    width: 44px; height:44px; border-radius: 12px;
+    flex: none;
+    background: #000 url("data:image/webp;base64,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") center / 66% no-repeat;
+    position: relative;
+    border: 1px solid var(--border);
+    box-shadow: var(--glow);
+  }
+  .brand h1{
+    font-family:'Space Grotesk', 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .brand .tagline{
+    margin: 3px 0 0;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .brand-titles{ position: relative; }
+  .page-switcher{
+    display:flex;
+    align-items:center;
+    gap: 7px;
+    background: none;
+    border: none;
+    padding: 2px 4px 2px 2px;
+    margin: -2px 0 0 -2px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .page-switcher:hover{ background: var(--surface-2); }
+  .page-switcher:disabled{ cursor: default; }
+  .page-switcher:disabled:hover{ background: none; }
+  .page-switcher:disabled .page-switcher-caret{ opacity: .35; }
+  .page-switcher-caret{
+    font-size: 12px;
+    color: var(--text-faint);
+    transition: transform .15s ease;
+    margin-top: 3px;
+  }
+  .page-switcher[aria-expanded="true"] .page-switcher-caret{ transform: rotate(180deg); }
+  .page-menu{
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 210px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 6px;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .page-menu[hidden]{ display: none; }
+  .page-menu-item{
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 9px 10px;
+    border-radius: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .page-menu-item:hover{ background: var(--surface-2); }
+  .page-menu-item.is-active{ background: var(--accent-soft); color: var(--accent-strong); }
+  .clock-wrap{ text-align:right; flex: none; }
+  .clock{
+    font-family:'IBM Plex Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--text);
+  }
+  .clock-date{
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  /* ---------- Summary chips ---------- */
+  .summary{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .chip{
+    display:flex;
+    align-items:baseline;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .chip b{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 16px;
+    color: var(--text);
+  }
+  .chip.ok b{ color: var(--ok); }
+  .chip.warn b{ color: var(--warn); }
+  .chip.danger b{ color: var(--danger); }
+
+  /* ---------- Store filter ---------- */
+  .store-filter-row{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    margin: 2px 0 16px;
+  }
+  .store-filter-label{
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-faint);
+  }
+  .store-filter-select{
+    font-size: 13px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    min-width: 190px;
+  }
+  .store-filter-select:focus{ background: var(--surface); }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .hint{
+    margin:0;
+    font-size: 12.5px;
+    color: var(--text-faint);
+    max-width: 56ch;
+  }
+  .btn-primary, .btn-secondary, .btn-ghost{
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 9px 15px;
+    border: 1px solid transparent;
+    transition: filter .15s ease, background .15s ease;
+  }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--accent-2), var(--accent) 65%);
+    color: #fff;
+    box-shadow: 0 6px 18px -6px rgba(139,92,246,.55);
+  }
+  .btn-primary:hover{ filter: brightness(1.08); box-shadow: 0 8px 22px -6px rgba(139,92,246,.7); }
+  .btn-secondary{
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .btn-secondary:hover{ background: var(--surface-2); border-color: var(--accent); }
+  .toolbar-actions{ display:flex; align-items:center; gap: 8px; flex-wrap: wrap; }
+
+  .ticket-status-filter{
+    display:flex;
+    align-items:center;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 8px;
+    background: var(--teal-bg);
+    border: 1px solid var(--teal-border);
+  }
+  .ticket-status-btn{
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .01em;
+    padding: 4.5px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background .15s ease, color .15s ease;
+  }
+  .ticket-status-btn:hover{ color: var(--text); }
+  .ticket-status-btn.is-active{
+    background: var(--teal);
+    color: var(--teal-ink);
+  }
+
+  .voice-btn[hidden]{ display: none; }
+
+  .voice-panel{
+    background: var(--surface);
+    border: 1px solid var(--teal-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .voice-panel[hidden]{ display: none; }
+  .voice-panel-status{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--teal);
+  }
+  .voice-panel-status .rec-dot{
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--danger);
+    flex: none;
+    animation: recPulse 1.1s ease-in-out infinite;
+  }
+  @keyframes recPulse{ 0%,100%{ opacity: 1; } 50%{ opacity: .3; } }
+  .voice-panel.is-processing .voice-panel-status{ color: var(--warn); }
+  .voice-panel-transcript{
+    min-height: 42px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    background: var(--surface-2);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 10px 12px;
+    white-space: pre-wrap;
+  }
+  .voice-panel-transcript:empty::before{ content: "Fale agora…"; color: var(--text-faint); }
+
+  /* ---------- Add form ---------- */
+  .add-form{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 18px 20px;
+    margin-bottom: 22px;
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 1fr .9fr 1.6fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .add-form[hidden]{ display: none; }
+  .store-form{ grid-template-columns: 1.4fr 1.4fr auto; }
+  .ticket-form{ grid-template-columns: 1fr 1fr; }
+  .ticket-form .ticket-deadline-field,
+  .ticket-form .ticket-tasks-field,
+  .ticket-form .ticket-urgency-field,
+  .ticket-form .form-actions{ grid-column: 1 / -1; }
+  .ticket-deadline-field input[type="date"]{ max-width: 220px; }
+
+  .ticket-task-inputs{ display:flex; flex-direction:column; gap:6px; }
+  .ticket-task-input-row{ display:flex; gap:6px; align-items:center; }
+  .ticket-task-input-row input{
+    flex:1;
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .ticket-task-input-row input:focus{ background: var(--surface); }
+  .task-input-remove{
+    flex:none;
+    width: 30px; height: 30px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-faint);
+    font-size: 16px;
+    line-height: 1;
+  }
+  .task-input-remove:hover{ color: var(--danger); border-color: var(--danger-border); }
+
+  .urgency-picker{ display:flex; gap: 7px; }
+  .urgency-option{
+    flex:1;
+    display:flex; flex-direction:column; align-items:center; gap:5px;
+    padding: 9px 6px;
+    border-radius: 9px;
+    border: 2px solid var(--border);
+    background: var(--surface-2);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+  .urgency-option::before{
+    content:"";
+    width: 15px; height: 15px;
+    border-radius: 50%;
+    background: var(--dot-color);
+  }
+  .urgency-option[data-level="1"]{ --dot-color: var(--urgency-1); }
+  .urgency-option[data-level="2"]{ --dot-color: var(--urgency-2); }
+  .urgency-option[data-level="3"]{ --dot-color: var(--urgency-3); }
+  .urgency-option[data-level="4"]{ --dot-color: var(--urgency-4); }
+  .urgency-option.is-selected{ border-color: var(--dot-color); background: var(--surface); color: var(--text); }
+  .field{ display:flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .field label{
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-faint);
+  }
+  .field input, .field select{
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    width: 100%;
+  }
+  .field input:focus, .field select:focus{ background: var(--surface); }
+  .form-actions{ display:flex; gap: 8px; }
+  .form-note{
+    grid-column: 1 / -1;
+    font-size: 12px;
+    color: var(--text-faint);
+    margin: -2px 0 0;
+  }
+
+  .budget-toggle-row{ grid-column: 1 / -1; margin: -4px 0 0; }
+  .budget-toggle{
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .budget-toggle:hover{ color: var(--accent-strong); }
+  .budget-fields{
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .budget-fields[hidden]{ display: none; }
+  .budget-fields .field{ flex: 1; min-width: 140px; max-width: 220px; }
+
+  /* ---------- Store grid ---------- */
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--grid-min), 1fr));
+    gap: var(--grid-gap);
+  }
+
+  .store-card{
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: var(--card-border-left) solid var(--border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+    padding: var(--card-pad);
+    display:flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .store-card:hover{
+    border-top-color: var(--accent);
+    border-right-color: var(--accent);
+    border-bottom-color: var(--accent);
+    box-shadow: var(--glow);
+    transform: translateY(-2px);
+  }
+  .store-card.status-danger{ border-left-color: var(--danger); }
+  .store-card.status-warn{ border-left-color: var(--warn); }
+  .store-card.status-ok{ border-left-color: var(--ok); }
+  .store-card.ticket-card.urgency-1{ border-left-color: var(--urgency-1); }
+  .store-card.ticket-card.urgency-2{ border-left-color: var(--urgency-2); }
+  .store-card.ticket-card.urgency-3{ border-left-color: var(--urgency-3); }
+  .store-card.ticket-card.urgency-4{ border-left-color: var(--urgency-4); }
+
+  .store-head{
+    display:flex;
+    align-items:center;
+    gap: var(--card-gap);
+  }
+  .store-avatar{
+    width: var(--avatar-size); height: var(--avatar-size);
+    border-radius: var(--avatar-radius);
+    display:flex; align-items:center; justify-content:center;
+    position: relative;
+    overflow: hidden;
+    flex: none;
+    background: var(--surface-2);
+    padding: 0;
+    border: none;
+  }
+  .store-avatar.is-editable{ cursor: pointer; }
+  .store-avatar-fallback{
+    width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: var(--avatar-font);
+    color: #fff;
+    background: var(--av-color, var(--accent));
+  }
+  .store-avatar-img{
+    width:100%; height:100%;
+    object-fit: cover;
+    display:block;
+  }
+  .avatar-edit-badge{
+    position:absolute;
+    right:-1px; bottom:-1px;
+    width:var(--badge-size); height:var(--badge-size);
+    border-radius:50%;
+    background: var(--accent);
+    color:#fff;
+    font-size:var(--badge-font);
+    line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 0 0 1px var(--surface);
+    pointer-events:none;
+  }
+  .store-titles{ min-width: 0; flex: 1; }
+  .store-titles h2{
+    font-family:'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: var(--title-font);
+    margin: 0;
+    letter-spacing: -.005em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .store-meta{
+    font-size: var(--meta-font);
+    color: var(--text-faint);
+  }
+  .store-budget{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:1px;
+    flex:none;
+    text-align:right;
+    line-height:1.15;
+    margin: 0 1px;
+  }
+  .store-budget-label{
+    font-size: var(--budget-label-font);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-faint);
+  }
+  .store-budget-value{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: var(--budget-value-font);
+    color: var(--warn);
+  }
+  .store-budget.is-critical .store-budget-value{ color: var(--danger); }
+  .status-dot{
+    width: var(--dot-size); height:var(--dot-size); border-radius: 50%;
+    flex: none;
+    background: var(--ok);
+  }
+  .store-card.status-warn .status-dot{ background: var(--warn); }
+  .store-card.status-danger .status-dot{
+    background: var(--danger);
+    box-shadow: 0 0 0 var(--dot-ring) var(--danger-bg);
+  }
+
+  .campaign-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--list-gap); }
+  .campaign{
+    border: 1px solid var(--border-soft);
+    background: var(--surface-2);
+    border-radius: var(--item-radius);
+    padding: var(--item-pad);
+    display:flex;
+    flex-direction: column;
+    gap: var(--item-gap);
+  }
+  .campaign.status-ok{ background: var(--ok-bg); border-color: var(--ok-border); }
+  .campaign.status-warn{ background: var(--warn-bg); border-color: var(--warn-border); }
+  .campaign.status-danger{ background: var(--danger-bg); border-color: var(--danger-border); }
+
+  .campaign-row1{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: var(--row-gap);
+  }
+  .platform-tag{
+    font-weight: 700;
+    font-size: var(--platform-font);
+  }
+  .status-pill{
+    font-size: var(--pill-font);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: var(--pill-pad);
+    border-radius: 100px;
+    color: var(--ok);
+    background: color-mix(in srgb, var(--ok) 14%, transparent);
+  }
+  .campaign.status-warn .status-pill{ color: var(--warn); background: color-mix(in srgb, var(--warn) 16%, transparent); }
+  .campaign.status-danger .status-pill{ color: var(--danger); background: color-mix(in srgb, var(--danger) 16%, transparent); }
+
+  .campaign-row2{
+    display:flex;
+    align-items:baseline;
+    justify-content: space-between;
+    gap: var(--row-gap);
+    font-size: var(--row2-font);
+    color: var(--text-dim);
+  }
+  .countdown{ font-family:'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
+  .campaign.status-danger .countdown{ color: var(--danger-strong); font-weight: 600; }
+  .deadline-abs{ color: var(--text-faint); }
+
+  .campaign-note{
+    font-size: var(--note-font);
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .campaign-actions{
+    display:flex;
+    gap: var(--actions-gap);
+    margin-top: var(--actions-margin-top);
+  }
+  .campaign-actions button{
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: var(--action-btn-font);
+    padding: var(--action-btn-pad);
+    border-radius: var(--action-btn-radius);
+  }
+  .campaign-actions button:hover{ background: var(--surface); color: var(--text); }
+  .campaign-actions button.danger-action{ color: var(--danger); border-color: var(--danger-border); }
+  .campaign-actions button.confirming{
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #fff;
+  }
+
+  .edit-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: var(--edit-gap);
+    align-items: end;
+  }
+  .edit-grid .field label{ font-size: var(--edit-label-font); }
+  .edit-grid .field input{ font-size: var(--edit-input-font); padding: var(--edit-input-pad); }
+
+  .edit-grid.add-platform-grid{ grid-template-columns: 1fr; align-items: stretch; }
+  .add-platform-grid .form-actions{ justify-content: flex-end; margin-top: 2px; }
+
+  .archived-toggle{
+    align-self: flex-start;
+    background: transparent;
+    border: none;
+    color: var(--text-faint);
+    font-size: var(--toggle-font);
+    padding: 2px 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .archived-toggle:hover{ color: var(--accent); }
+  .campaign.is-archived{ opacity: .6; }
+
+  .empty-state{
+    grid-column: 1 / -1;
+    text-align:center;
+    padding: 30px 14px;
+    color: var(--text-faint);
+    font-size: 11px;
+    border: 1px dashed var(--border);
+    border-radius: 9px;
+  }
+
+  /* ---------- Chamados ---------- */
+  .ticket-task-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap: var(--item-gap); }
+  .ticket-task{
+    display:flex;
+    align-items:flex-start;
+    gap: 7px;
+  }
+  .ticket-task label{
+    display:flex;
+    align-items:flex-start;
+    gap: 7px;
+    font-size: var(--row2-font);
+    color: var(--text);
+    cursor:pointer;
+  }
+  .ticket-task input[type="checkbox"]{
+    margin-top: 2px;
+    flex: none;
+    width: 14px; height: 14px;
+    accent-color: var(--accent);
+    cursor:pointer;
+  }
+  .ticket-task.is-done label{ color: var(--text-faint); text-decoration: line-through; }
+  .ticket-task-remove{
+    margin-left:auto;
+    flex:none;
+    background:none;
+    border:none;
+    color: var(--text-faint);
+    font-size: 13px;
+    line-height:1;
+    padding: 0 2px;
+    opacity: 0;
+    transition: opacity .1s ease;
+  }
+  .ticket-task:hover .ticket-task-remove{ opacity: 1; }
+  .ticket-task-remove:hover{ color: var(--danger); }
+
+  .ticket-progress{
+    font-size: var(--note-font);
+    color: var(--text-faint);
+  }
+
+  .urgency-row{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .urgency-badge{
+    font-size: var(--pill-font);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: var(--pill-pad);
+    border-radius: 100px;
+    flex: none;
+  }
+  .urgency-meter{ display:flex; gap:3px; flex:1; }
+  .urgency-seg{
+    flex:1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-soft);
+  }
+  .urgency-seg.is-lvl-1{ background: var(--urgency-1); }
+  .urgency-seg.is-lvl-2{ background: var(--urgency-2); }
+  .urgency-seg.is-lvl-3{ background: var(--urgency-3); }
+  .urgency-seg.is-lvl-4{ background: var(--urgency-4); }
+
+  .deadline-detail{
+    font-size: var(--note-font);
+    color: var(--text-faint);
+    margin-top: -2px;
+  }
+
+  .ticket-overdue-alert{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size: var(--row2-font);
+    font-weight: 700;
+    color: var(--danger-strong);
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--item-radius);
+    padding: var(--item-pad);
+  }
+
+  .add-task-grid{ display:flex; flex-direction:column; gap: var(--edit-gap); align-items:stretch; }
+  .add-task-grid input{
+    width:100%;
+    font-size: var(--edit-input-font);
+    padding: var(--edit-input-pad);
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .add-task-grid .form-actions{ justify-content: flex-end; }
+
+  .ticket-delete-btn{
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid var(--danger-border);
+    color: var(--danger);
+    font-size: var(--action-btn-font);
+    padding: var(--action-btn-pad);
+    border-radius: var(--action-btn-radius);
+    margin-top: 1px;
+  }
+  .ticket-delete-btn:hover{ background: var(--danger-bg); }
+  .ticket-delete-btn.confirming{
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #fff;
+  }
+
+  .store-card.ticket-card{ padding-right: 32px; }
+  .ticket-conclude-btn{
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-faint);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 11px;
+    line-height:1;
+    flex: none;
+    transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+  }
+  .ticket-conclude-btn:hover{
+    border-color: var(--ok);
+    color: var(--ok);
+    background: var(--ok-bg);
+    transform: scale(1.08);
+  }
+  .store-card.ticket-card.is-concluded{ opacity: .62; }
+  .store-card.ticket-card.is-concluded .ticket-conclude-btn{
+    background: var(--ok);
+    border-color: var(--ok);
+    color: #06231f;
+  }
+  .store-card.ticket-card.is-concluded:hover{ opacity: .9; }
+
+  .status-banner{
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    border: 1px solid var(--border-soft);
+    margin-bottom: 16px;
+  }
+  .status-banner[hidden]{ display:none; }
+  .status-banner.warn-banner{
+    background: var(--warn-bg);
+    border-color: var(--warn-border);
+    color: var(--warn);
+  }
+
+  footer.foot{
+    margin-top: 30px;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    text-align:center;
+  }
+  .brand-foot{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 8px;
+    margin-top: 34px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-soft);
+    font-size: 11.5px;
+    letter-spacing: .02em;
+    color: var(--text-faint);
+  }
+  .brand-foot-mark{ width: 18px; height:auto; opacity:.9; display:block; }
+
+  /* ---------- Modo Dashboard (tela cheia para TV) ---------- */
+  .dashboard-toggle-btn{
+    align-self: center;
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.05);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--text-dim);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .dashboard-toggle-btn:hover{ background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.3); color: var(--text); }
+  .dashboard-toggle-btn .dot{
+    width: 7px; height:7px; border-radius: 50%;
+    background: var(--text-faint);
+    flex: none;
+    transition: background .15s ease, box-shadow .15s ease;
+  }
+  .dashboard-toggle-btn[aria-pressed="true"]{
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+  }
+  .dashboard-toggle-btn[aria-pressed="true"] .dot{
+    background: var(--ok);
+    box-shadow: 0 0 0 3px var(--ok-bg);
+  }
+
+  .dashboard-columns{ display: contents; }
+  .dashboard-pane-title{ display:none; }
+
+  body.dashboard-mode{ overflow: hidden; }
+  body.dashboard-mode .page{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: none;
+    padding: 0;
+  }
+  body.dashboard-mode .topbar{
+    flex: none;
+    padding: 16px 24px 14px;
+    margin-bottom: 0;
+  }
+  body.dashboard-mode #statusBanner{
+    flex: none;
+    margin: 0 24px 12px;
+  }
+  body.dashboard-mode #statusBanner[hidden]{ display:none; }
+  body.dashboard-mode .dashboard-columns{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  body.dashboard-mode #pageCampanhas,
+  body.dashboard-mode #pageChamados{
+    height: 100%;
+    overflow-y: auto;
+    padding: 4px 22px 28px;
+  }
+  body.dashboard-mode #pageCampanhas{
+    flex: 0 0 60%;
+    max-width: 60%;
+    border-right: 1px solid var(--border-soft);
+  }
+  body.dashboard-mode #pageChamados{
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  body.dashboard-mode .dashboard-pane-title{
+    display: block;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 14px 0 10px;
+    margin: 0 0 4px;
+    font-family: 'Space Grotesk', 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    z-index: 2;
+  }
+  body.dashboard-mode .toolbar,
+  body.dashboard-mode .store-filter-row,
+  body.dashboard-mode #addStoreForm,
+  body.dashboard-mode #addForm,
+  body.dashboard-mode #ticketForm,
+  body.dashboard-mode .voice-panel,
+  body.dashboard-mode footer.foot,
+  body.dashboard-mode .brand-foot{
+    display: none !important;
+  }
+  body.dashboard-mode .grid{
+    --grid-min: 230px;
+    --grid-gap: 12px;
+    --card-pad: 12px 14px 9px;
+    --card-radius: 10px;
+    --card-gap: 9px;
+    --card-border-left: 3px;
+    --avatar-size: 30px;
+    --avatar-radius: 8px;
+    --avatar-font: 11px;
+    --badge-size: 13px;
+    --badge-font: 8px;
+    --title-font: 13.5px;
+    --meta-font: 10.5px;
+    --budget-label-font: 8px;
+    --budget-value-font: 11px;
+    --dot-size: 8px;
+    --dot-ring: 2px;
+    --list-gap: 6px;
+    --item-pad: 7px 9px;
+    --item-radius: 8px;
+    --item-gap: 5px;
+    --row-gap: 6px;
+    --platform-font: 11px;
+    --pill-font: 8.5px;
+    --pill-pad: 1.5px 6px;
+    --row2-font: 10.5px;
+    --note-font: 10px;
+    --actions-gap: 5px;
+    --actions-margin-top: 1px;
+    --action-btn-font: 10px;
+    --action-btn-pad: 3.5px 7px;
+    --action-btn-radius: 5px;
+    --edit-gap: 5px;
+    --edit-label-font: 8.5px;
+    --edit-input-font: 11px;
+    --edit-input-pad: 5px 7px;
+    --toggle-font: 10px;
+  }
+
+  @media (max-width: 900px){
+    body.dashboard-mode .dashboard-columns{ flex-direction: column; overflow-y: auto; }
+    body.dashboard-mode #pageCampanhas,
+    body.dashboard-mode #pageChamados{
+      max-width: 100%;
+      flex: none;
+      height: auto;
+      overflow-y: visible;
+      border-right: none;
+    }
+    body.dashboard-mode #pageCampanhas{ border-bottom: 1px solid var(--border-soft); }
+  }
+
+  @media (max-width: 720px){
+    .topbar{ flex-direction: column; }
+    .clock-wrap{ text-align:left; }
+    .add-form{ grid-template-columns: 1fr 1fr; }
+    .form-actions{ grid-column: 1/-1; justify-content: flex-end; }
+    .edit-grid{ grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; animation: none !important; }
+  }
+</style>
+
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+<div class="page">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div class="brand-titles">
+        <button type="button" class="page-switcher" id="pageSwitcherBtn" aria-haspopup="true" aria-expanded="false">
+          <h1 id="pageTitle">Radar de Campanhas</h1>
+          <span class="page-switcher-caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <p class="tagline" id="pageTagline">Prazo das ofertas por loja e plataforma</p>
+        <div class="page-menu" id="pageMenu" role="menu" hidden>
+          <button type="button" class="page-menu-item is-active" data-page="campanhas" role="menuitem">Radar de Campanhas</button>
+          <button type="button" class="page-menu-item" data-page="chamados" role="menuitem">Chamados</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="dashboard-toggle-btn" id="dashboardToggleBtn" aria-pressed="false">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="dashboardToggleLabel">Modo Dashboard</span>
+    </button>
+    <div class="clock-wrap">
+      <div class="clock mono" id="clock">--:--:--</div>
+      <div class="clock-date" id="clockDate">carregando…</div>
+    </div>
+  </header>
+
+  <div id="statusBanner" class="status-banner" hidden></div>
+
+  <div class="dashboard-columns" id="dashboardColumns">
+  <div id="pageCampanhas">
+    <h2 class="dashboard-pane-title">Campanhas</h2>
+    <section class="summary" id="summary" aria-label="Resumo"></section>
+
+    <div class="store-filter-row">
+      <label for="storeFilter" class="store-filter-label">Loja</label>
+      <select id="storeFilter" class="store-filter-select">
+        <option value="">Todas as lojas</option>
+      </select>
+    </div>
+
+    <div class="toolbar">
+      <p class="hint">Adicione uma loja ou campanha aqui ou só me conte no chat &mdash; eu atualizo o painel pra você.</p>
+      <div class="toolbar-actions">
+        <button class="btn-secondary" id="openStoreFormBtn" type="button">+ Nova loja</button>
+        <button class="btn-primary" id="openFormBtn" type="button">+ Adicionar campanha</button>
+        <button class="btn-secondary voice-btn" id="voiceCampaignBtn" type="button" hidden>&#127908; Preencher por voz</button>
+      </div>
+    </div>
+
+    <div class="voice-panel" id="voiceCampaignPanel" hidden>
+      <div class="voice-panel-status" id="voiceCampaignStatus">Ouvindo…</div>
+      <div class="voice-panel-transcript" id="voiceCampaignTranscript"></div>
+      <div class="form-actions">
+        <button type="button" class="btn-primary" id="voiceCampaignStopBtn">Parar e preencher</button>
+        <button type="button" class="btn-secondary" id="voiceCampaignCancelBtn">Cancelar</button>
+      </div>
+    </div>
+
+    <form class="add-form store-form" id="addStoreForm" hidden>
+      <div class="field">
+        <label for="fs-name">Nome da loja</label>
+        <input id="fs-name" name="name" placeholder="Ex.: Loja MKL" required autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="fs-logo">Logo (link da imagem, opcional)</label>
+        <input id="fs-logo" name="logo" type="url" placeholder="https://…" autocomplete="off" />
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" class="btn-secondary" id="cancelStoreFormBtn">Cancelar</button>
+      </div>
+      <p class="form-note">Depois, use “+ Adicionar plataforma” dentro do card da loja para lançar cada campanha.</p>
+    </form>
+
+    <form class="add-form" id="addForm" hidden>
+      <div class="field">
+        <label for="f-store">Loja</label>
+        <input id="f-store" name="store" list="storeOptions" placeholder="Ex.: Loja MKL" required autocomplete="off" />
+        <datalist id="storeOptions"></datalist>
+      </div>
+      <div class="field">
+        <label for="f-platform">Plataforma / tipo</label>
+        <input id="f-platform" name="platform" placeholder="Ex.: TikTok, Shopee…" required autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="f-date">Data final</label>
+        <input id="f-date" name="date" type="date" required />
+      </div>
+      <div class="field">
+        <label for="f-time">Hora final</label>
+        <input id="f-time" name="time" type="time" required />
+      </div>
+      <div class="field">
+        <label for="f-note">Nota (opcional)</label>
+        <input id="f-note" name="note" placeholder="Ex.: renovar automaticamente" autocomplete="off" />
+      </div>
+      <div class="budget-toggle-row">
+        <button type="button" class="budget-toggle" id="budgetToggle">+ Orçamento de anúncios (opcional)</button>
+      </div>
+      <div class="budget-fields" id="budgetFields" hidden>
+        <div class="field">
+          <label for="f-budget-total">Orçamento total (R$)</label>
+          <input id="f-budget-total" name="budgetTotal" type="number" min="0" step="0.01" placeholder="Ex.: 80" />
+        </div>
+        <div class="field">
+          <label for="f-budget-daily">Gasto por dia (R$)</label>
+          <input id="f-budget-daily" name="dailySpend" type="number" min="0" step="0.01" placeholder="Ex.: 20" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" class="btn-secondary" id="cancelFormBtn">Cancelar</button>
+      </div>
+      <p class="form-note">Horário considerado: fuso de Brasília (America/Sao_Paulo). O saldo de anúncios é opcional — só aparece no card da loja se você preencher os dois campos.</p>
+    </form>
+
+    <main class="grid" id="storeGrid" aria-live="polite"></main>
+
+    <footer class="foot">Atualiza sozinho a cada poucos segundos &middot; fuso horário de Brasília</footer>
+  </div>
+
+  <div id="pageChamados" hidden>
+    <h2 class="dashboard-pane-title">Chamados</h2>
+    <div class="toolbar">
+      <p class="hint">Abra um chamado por loja, liste as tarefas e acompanhe a urgência até resolver.</p>
+      <div class="toolbar-actions">
+        <button class="btn-primary" id="openTicketFormBtn" type="button">+ Novo chamado</button>
+        <button class="btn-secondary voice-btn" id="voiceTicketBtn" type="button" hidden>&#127908; Falar chamado</button>
+        <div class="ticket-status-filter" id="ticketStatusFilter" role="tablist" aria-label="Filtrar chamados">
+          <button type="button" class="ticket-status-btn is-active" data-filter="pendentes" role="tab" aria-selected="true">Pendentes</button>
+          <button type="button" class="ticket-status-btn" data-filter="recentes" role="tab" aria-selected="false">Recentes</button>
+          <button type="button" class="ticket-status-btn" data-filter="concluidos" role="tab" aria-selected="false">Concluídos</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="voice-panel" id="voiceTicketPanel" hidden>
+      <div class="voice-panel-status" id="voiceTicketStatus">Ouvindo…</div>
+      <div class="voice-panel-transcript" id="voiceTicketTranscript"></div>
+      <div class="form-actions">
+        <button type="button" class="btn-primary" id="voiceTicketStopBtn">Parar e preencher</button>
+        <button type="button" class="btn-secondary" id="voiceTicketCancelBtn">Cancelar</button>
+      </div>
+    </div>
+
+    <form class="add-form ticket-form" id="ticketForm" hidden>
+      <div class="field">
+        <label for="t-store">Nome da loja</label>
+        <input id="t-store" name="store" list="ticketStoreOptions" placeholder="Ex.: Loja MKL" required autocomplete="off" />
+        <datalist id="ticketStoreOptions"></datalist>
+      </div>
+      <div class="field">
+        <label for="t-title">O que é o chamado</label>
+        <input id="t-title" name="title" placeholder="Ex.: Trocar banner da campanha" required autocomplete="off" />
+      </div>
+      <div class="field ticket-deadline-field">
+        <label for="t-due">Data prevista para entrega (opcional)</label>
+        <input id="t-due" name="dueDate" type="date" />
+      </div>
+      <div class="field ticket-tasks-field">
+        <label>Tarefas (opcional)</label>
+        <div class="ticket-task-inputs" id="ticketTaskInputs"></div>
+        <button type="button" class="btn-secondary" id="addTaskInputBtn">+ Adicionar tarefa</button>
+      </div>
+      <div class="field ticket-urgency-field">
+        <label>Urgência</label>
+        <div class="urgency-picker" id="urgencyPicker">
+          <button type="button" class="urgency-option" data-level="1">Baixa</button>
+          <button type="button" class="urgency-option" data-level="2">Moderada</button>
+          <button type="button" class="urgency-option" data-level="3">Alta</button>
+          <button type="button" class="urgency-option" data-level="4">Crítica</button>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Salvar</button>
+        <button type="button" class="btn-secondary" id="cancelTicketFormBtn">Cancelar</button>
+      </div>
+      <p class="form-note">Marque as tarefas como concluídas dentro do card do chamado. As pendentes ficam sempre visíveis até você ticar.</p>
+    </form>
+
+    <main class="grid" id="ticketGrid" aria-live="polite"></main>
+  </div>
+  </div>
+
+  <footer class="brand-foot">
+    <img class="brand-foot-mark" src="data:image/webp;base64,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" alt="Push Digital" />
+    <span>Push Digital &middot; Assessoria Digital para E-commerce</span>
+  </footer>
+</div>
+
+<!-- O endereço e a senha ficam no arquivo config.js, ao lado deste. -->
+<script src="config.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var CONFIG = Object.assign({ url: "", senha: "" }, window.CONFIG || {});
+
+  var WARN_MS = 2 * 60 * 60 * 1000; // 2h para virar amarelo ("vence em breve")
+  var TZ = "America/Sao_Paulo";
+  var AVATAR_COLORS = ["var(--av-1)", "var(--av-2)", "var(--av-3)", "var(--av-4)"];
+
+  var els = {
+    clock: document.getElementById("clock"),
+    clockDate: document.getElementById("clockDate"),
+    summary: document.getElementById("summary"),
+    grid: document.getElementById("storeGrid"),
+    banner: document.getElementById("statusBanner"),
+    openFormBtn: document.getElementById("openFormBtn"),
+    cancelFormBtn: document.getElementById("cancelFormBtn"),
+    addForm: document.getElementById("addForm"),
+    budgetToggle: document.getElementById("budgetToggle"),
+    budgetFields: document.getElementById("budgetFields"),
+    openStoreFormBtn: document.getElementById("openStoreFormBtn"),
+    cancelStoreFormBtn: document.getElementById("cancelStoreFormBtn"),
+    addStoreForm: document.getElementById("addStoreForm"),
+    storeOptions: document.getElementById("storeOptions"),
+    storeFilter: document.getElementById("storeFilter"),
+    pageSwitcherBtn: document.getElementById("pageSwitcherBtn"),
+    pageMenu: document.getElementById("pageMenu"),
+    pageTitle: document.getElementById("pageTitle"),
+    pageTagline: document.getElementById("pageTagline"),
+    pageCampanhas: document.getElementById("pageCampanhas"),
+    pageChamados: document.getElementById("pageChamados"),
+    openTicketFormBtn: document.getElementById("openTicketFormBtn"),
+    cancelTicketFormBtn: document.getElementById("cancelTicketFormBtn"),
+    ticketForm: document.getElementById("ticketForm"),
+    ticketTaskInputs: document.getElementById("ticketTaskInputs"),
+    addTaskInputBtn: document.getElementById("addTaskInputBtn"),
+    urgencyPicker: document.getElementById("urgencyPicker"),
+    ticketStoreOptions: document.getElementById("ticketStoreOptions"),
+    ticketGrid: document.getElementById("ticketGrid"),
+    ticketStatusFilter: document.getElementById("ticketStatusFilter"),
+    dashboardToggleBtn: document.getElementById("dashboardToggleBtn"),
+    dashboardToggleLabel: document.getElementById("dashboardToggleLabel"),
+    voiceCampaignBtn: document.getElementById("voiceCampaignBtn"),
+    voiceCampaignPanel: document.getElementById("voiceCampaignPanel"),
+    voiceCampaignStatus: document.getElementById("voiceCampaignStatus"),
+    voiceCampaignTranscript: document.getElementById("voiceCampaignTranscript"),
+    voiceCampaignStopBtn: document.getElementById("voiceCampaignStopBtn"),
+    voiceCampaignCancelBtn: document.getElementById("voiceCampaignCancelBtn"),
+    voiceTicketBtn: document.getElementById("voiceTicketBtn"),
+    voiceTicketPanel: document.getElementById("voiceTicketPanel"),
+    voiceTicketStatus: document.getElementById("voiceTicketStatus"),
+    voiceTicketTranscript: document.getElementById("voiceTicketTranscript"),
+    voiceTicketStopBtn: document.getElementById("voiceTicketStopBtn"),
+    voiceTicketCancelBtn: document.getElementById("voiceTicketCancelBtn"),
+    editingId: null
+  };
+
+  var URGENCY_LABELS = ["", "Baixa", "Moderada", "Alta", "Crítica"];
+  var DEADLINE_LABELS = ["", "No prazo", "Atenção", "Quase no limite", "Urgente"];
+
+  var PAGES = {
+    campanhas: { title: "Radar de Campanhas", tagline: "Prazo das ofertas por loja e plataforma" },
+    chamados: { title: "Chamados", tagline: "Central de chamados da agência" }
+  };
+
+  var state = {
+    campaigns: [],     // {id, store, platform, deadlineISO, note, archived}
+    stores: {},         // slug -> {name, logoDataUrl}
+    db: null,
+    sample: null,       // capacidade "sample" (preenchimento por voz) — null até resolver/indisponível
+    writable: true,
+    showArchivedFor: {},  // storeName -> bool
+    addPlatformFor: {},   // storeName -> bool
+    addPlatformDrafts: {},// storeName -> {platform,date,time,note,budgetTotal,dailySpend,budgetOpen} (unsaved typing)
+    addPlatformFocus: {}, // storeName -> field name currently focused
+    editDrafts: {},       // campaignId -> {platform,date,time,budgetTotal,dailySpend} (unsaved typing)
+    editFocus: {},         // campaignId -> field name currently focused
+    storeFilter: "",        // "" = todas as lojas; senão, o nome da loja selecionada
+    activePage: "campanhas", // "campanhas" | "chamados"
+    dashboardMode: false,   // modo TV: campanhas (60%) e chamados (40%) lado a lado
+
+    chamados: [],        // {id, store, title, tasks:[{text,done}], urgency:1-4, status, concludedAt, createdAt}
+    addTaskFor: {},       // ticketId -> bool (mini-form "+ tarefa" aberto)
+    addTaskDrafts: {},    // ticketId -> {task} (digitação não salva)
+    addTaskFocus: {},     // ticketId -> nome do campo focado
+    ticketUrgency: 1,     // nível selecionado no formulário de novo chamado
+    ticketFilter: "pendentes" // "pendentes" | "recentes" | "concluidos"
+  };
+
+  var clockFmt = new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  var dateFmt = new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, weekday: "short", day: "2-digit", month: "short", year: "numeric" });
+  var shortDateFmt = new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, day: "2-digit", month: "2-digit" });
+  var timeFmt = new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, hour: "2-digit", minute: "2-digit" });
+  var currencyFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+
+  function tickClock(){
+    var now = new Date();
+    els.clock.textContent = clockFmt.format(now);
+    els.clockDate.textContent = dateFmt.format(now);
+  }
+
+  function fmtDuration(ms){
+    var abs = Math.abs(ms);
+    var days = Math.floor(abs / 86400000);
+    var hours = Math.floor(abs / 3600000) % 24;
+    var mins = Math.floor(abs / 60000) % 60;
+    var parts = [];
+    if (days) parts.push(days + "d");
+    if (days || hours) parts.push(hours + "h");
+    if (!days) parts.push(mins + "min");
+    return parts.join(" ");
+  }
+
+  function statusOf(ms){
+    if (ms <= 0) return "danger";
+    if (ms <= WARN_MS) return "warn";
+    return "ok";
+  }
+
+  function statusLabel(s){
+    return s === "danger" ? "Vencida" : s === "warn" ? "Vence em breve" : "No prazo";
+  }
+
+  function initials(name){
+    var words = String(name).trim().split(/\s+/).filter(Boolean);
+    if (!words.length) return "??";
+    if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+    return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+  }
+
+  function colorFor(name){
+    var h = 0;
+    for (var i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+    return AVATAR_COLORS[h % AVATAR_COLORS.length];
+  }
+
+  // Saldo de anúncios: orçamento total menos (gasto por dia × dias desde o cadastro).
+  function budgetRemaining(c, now){
+    if (!(c.budgetTotal > 0) || !(c.dailySpend > 0)) return null;
+    var createdMs = c.createdAt ? new Date(c.createdAt).getTime() : now;
+    if (isNaN(createdMs)) createdMs = now;
+    var daysElapsed = Math.floor((now - createdMs) / 86400000);
+    if (daysElapsed < 0) daysElapsed = 0;
+    var remaining = c.budgetTotal - c.dailySpend * daysElapsed;
+    return remaining < 0 ? 0 : remaining;
+  }
+
+  function slugify(name){
+    var s = String(name).trim().toLowerCase();
+    try { s = s.normalize("NFD").replace(new RegExp("[\\u0300-\\u036f]", "g"), ""); } catch (e) {}
+    s = s.replace(/[^a-z0-9]+/g, "-").replace(/(^-+|-+$)/g, "");
+    return s || "loja";
+  }
+
+  function storeMetaFor(storeName){
+    return state.stores[slugify(storeName)] || null;
+  }
+
+  // Termômetro de prazo: nível 1 (verde) a 4 (vermelho) conforme a data prevista
+  // de entrega vai se aproximando, e "overdue" quando já passou do prazo.
+  var DAY_MS = 86400000;
+  function deadlineStatus(t, now){
+    if (!t.dueDateISO) return null;
+    var due = new Date(t.dueDateISO).getTime();
+    if (isNaN(due)) return null;
+    var remainingMs = due - now;
+    if (remainingMs <= 0){
+      return { level: 4, overdue: true, remainingMs: remainingMs, due: due };
+    }
+    var level;
+    if (remainingMs <= DAY_MS) level = 4;          // vence em até 1 dia
+    else if (remainingMs <= 3 * DAY_MS) level = 3; // vence em até 3 dias
+    else if (remainingMs <= 7 * DAY_MS) level = 2; // vence em até 7 dias
+    else level = 1;                                 // mais de 1 semana de folga
+    return { level: level, overdue: false, remainingMs: remainingMs, due: due };
+  }
+
+  function groupByStore(list){
+    var map = {};
+    var order = [];
+    list.forEach(function(c){
+      if (!map[c.store]) { map[c.store] = []; order.push(c.store); }
+      map[c.store].push(c);
+    });
+    return { map: map, order: order };
+  }
+
+  function render(){
+    renderTickets();
+
+    var now = Date.now();
+    var active = state.campaigns.filter(function(c){ return !c.archived; });
+
+    var okCount = 0, warnCount = 0, dangerCount = 0;
+    active.forEach(function(c){
+      var s = statusOf(new Date(c.deadlineISO).getTime() - now);
+      if (s === "ok") okCount++; else if (s === "warn") warnCount++; else dangerCount++;
+    });
+
+    els.summary.innerHTML =
+      '<div class="chip"><span>Lojas</span><b>' + Object.keys(groupByStore(active).map).length + '</b></div>' +
+      '<div class="chip ok"><span>No prazo</span><b>' + okCount + '</b></div>' +
+      '<div class="chip warn"><span>Em breve</span><b>' + warnCount + '</b></div>' +
+      '<div class="chip danger"><span>Vencidas</span><b>' + dangerCount + '</b></div>';
+
+    var grouped = groupByStore(state.campaigns);
+
+    Object.keys(state.stores).forEach(function(slug){
+      var meta = state.stores[slug];
+      if (meta && meta.name && !grouped.map[meta.name]){
+        grouped.map[meta.name] = [];
+        grouped.order.push(meta.name);
+      }
+    });
+
+    if (!grouped.order.length){
+      els.grid.innerHTML = '<div class="empty-state">Nenhuma campanha cadastrada ainda.<br>Use “+ Adicionar campanha” acima ou conte pra mim no chat.</div>';
+      updateStoreOptions([]);
+      updateStoreFilterOptions([]);
+      restoreFocus();
+      return;
+    }
+
+    updateStoreOptions(grouped.order);
+    updateStoreFilterOptions(grouped.order);
+
+    var cardsData = grouped.order.map(function(store){
+      var items = grouped.map[store].slice().sort(function(a, b){
+        return new Date(a.deadlineISO) - new Date(b.deadlineISO);
+      });
+      var activeItems = items.filter(function(c){ return !c.archived; });
+      var archivedItems = items.filter(function(c){ return c.archived; });
+
+      var worst = "ok";
+      var soonest = Infinity;
+      activeItems.forEach(function(c){
+        var delta = new Date(c.deadlineISO).getTime() - now;
+        var s = statusOf(delta);
+        if (s === "danger") worst = "danger";
+        else if (s === "warn" && worst !== "danger") worst = "warn";
+        soonest = Math.min(soonest, delta);
+      });
+      if (!activeItems.length) soonest = Infinity;
+
+      return { store: store, activeItems: activeItems, archivedItems: archivedItems, worst: worst, sortKey: soonest };
+    });
+
+    cardsData.sort(function(a, b){
+      var rank = { danger: 0, warn: 1, ok: 2 };
+      if (rank[a.worst] !== rank[b.worst]) return rank[a.worst] - rank[b.worst];
+      return a.sortKey - b.sortKey;
+    });
+
+    if (state.storeFilter){
+      cardsData = cardsData.filter(function(cd){ return cd.store === state.storeFilter; });
+    }
+    els.grid.classList.toggle("single-store", !!state.storeFilter);
+
+    els.grid.innerHTML = "";
+    if (!cardsData.length){
+      els.grid.innerHTML = '<div class="empty-state">Nenhuma loja encontrada com esse filtro.</div>';
+    }
+    cardsData.forEach(function(cd){
+      els.grid.appendChild(renderCard(cd, now));
+    });
+
+    restoreFocus();
+  }
+
+  // O painel se reconstrói sozinho a cada poucos segundos (e a cada mudança de dados),
+  // o que recria os formulários abertos do zero. Sem isso, quem estivesse digitando
+  // perderia o que já tinha preenchido — então devolvemos o foco ao campo certo.
+  function restoreFocus(){
+    Object.keys(state.addPlatformFocus).forEach(function(storeName){
+      var fieldName = state.addPlatformFocus[storeName];
+      var forms = els.grid.querySelectorAll("form.add-platform-grid");
+      for (var i = 0; i < forms.length; i++){
+        if (forms[i].dataset.store === storeName){
+          focusField(forms[i], fieldName);
+          break;
+        }
+      }
+    });
+    Object.keys(state.editFocus).forEach(function(campaignId){
+      var fieldName = state.editFocus[campaignId];
+      var forms = els.grid.querySelectorAll("form.edit-grid");
+      for (var i = 0; i < forms.length; i++){
+        if (forms[i].dataset.campaignId === campaignId){
+          focusField(forms[i], fieldName);
+          break;
+        }
+      }
+    });
+    Object.keys(state.addTaskFocus).forEach(function(ticketId){
+      var fieldName = state.addTaskFocus[ticketId];
+      var forms = els.ticketGrid.querySelectorAll("form.add-task-grid");
+      for (var i = 0; i < forms.length; i++){
+        if (forms[i].dataset.ticketId === ticketId){
+          focusField(forms[i], fieldName);
+          break;
+        }
+      }
+    });
+  }
+
+  function focusField(form, fieldName){
+    var input = form.querySelector('[name="' + fieldName + '"]');
+    if (!input) return;
+    input.focus();
+    if (typeof input.selectionStart === "number"){
+      try { input.setSelectionRange(input.value.length, input.value.length); } catch (e) {}
+    }
+  }
+
+  function updateStoreOptions(stores){
+    els.storeOptions.innerHTML = stores.map(function(s){
+      return '<option value="' + escapeHtml(s) + '"></option>';
+    }).join("");
+  }
+
+  function updateStoreFilterOptions(stores){
+    if (stores.indexOf(state.storeFilter) === -1) state.storeFilter = "";
+    var current = state.storeFilter;
+    els.storeFilter.innerHTML = '<option value="">Todas as lojas</option>' +
+      stores.map(function(s){
+        return '<option value="' + escapeHtml(s) + '"' + (s === current ? " selected" : "") + '>' + escapeHtml(s) + '</option>';
+      }).join("");
+    els.storeFilter.value = current;
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, function(ch){
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  }
+
+  function renderCard(cd, now){
+    var card = document.createElement("article");
+    card.className = "store-card status-" + cd.worst;
+
+    var head = document.createElement("header");
+    head.className = "store-head";
+    var totalCount = cd.activeItems.length + cd.archivedItems.length;
+    var dangerActive = cd.activeItems.filter(function(c){ return statusOf(new Date(c.deadlineISO) - now) === "danger"; }).length;
+
+    var meta = storeMetaFor(cd.store);
+    var logo = meta && meta.logoDataUrl;
+    var avatarInner = logo
+      ? '<img class="store-avatar-img" src="' + logo + '" alt="" />'
+      : '<span class="store-avatar-fallback" style="--av-color:' + colorFor(cd.store) + '">' + escapeHtml(initials(cd.store)) + '</span>';
+
+    var budgetRemainingSum = 0, budgetDailySum = 0, hasBudget = false;
+    cd.activeItems.forEach(function(c){
+      var rem = budgetRemaining(c, now);
+      if (rem !== null){
+        hasBudget = true;
+        budgetRemainingSum += rem;
+        budgetDailySum += Number(c.dailySpend) || 0;
+      }
+    });
+    var budgetCritical = hasBudget && (budgetRemainingSum <= 0 || budgetRemainingSum <= budgetDailySum);
+    var budgetHtml = hasBudget
+      ? '<div class="store-budget' + (budgetCritical ? ' is-critical' : '') + '">' +
+          '<span class="store-budget-label">Saldo Ads</span>' +
+          '<span class="store-budget-value">' + escapeHtml(currencyFmt.format(budgetRemainingSum)) + '</span>' +
+        '</div>'
+      : '';
+
+    head.innerHTML =
+      '<button type="button" class="store-avatar' + (state.writable ? ' is-editable' : '') + '"' +
+        (state.writable ? ' title="Trocar logo da loja"' : ' disabled') + '>' +
+        avatarInner +
+        (state.writable ? '<span class="avatar-edit-badge" aria-hidden="true">&#9998;</span>' : '') +
+      '</button>' +
+      '<div class="store-titles">' +
+        '<h2>' + escapeHtml(cd.store) + '</h2>' +
+        '<span class="store-meta">' + totalCount + (totalCount === 1 ? " campanha" : " campanhas") +
+          (dangerActive ? " &middot; " + dangerActive + " vencida" + (dangerActive > 1 ? "s" : "") : "") +
+        '</span>' +
+      '</div>' +
+      budgetHtml +
+      '<span class="status-dot" aria-hidden="true"></span>';
+    card.appendChild(head);
+
+    if (state.writable){
+      var avatarBtn = head.querySelector(".store-avatar");
+      if (avatarBtn){
+        avatarBtn.addEventListener("click", function(){
+          var atual = (meta && meta.logoDataUrl) || "";
+          var novo = window.prompt("Link da imagem da loja (deixe vazio pra remover):", atual);
+          if (novo === null) return;
+          setStoreLogo(cd.store, novo.trim() || null);
+        });
+      }
+    }
+
+    var list = document.createElement("ul");
+    list.className = "campaign-list";
+    cd.activeItems.forEach(function(c){ list.appendChild(renderCampaign(c, now, false)); });
+
+    var showArchived = !!state.showArchivedFor[cd.store];
+    if (showArchived){
+      cd.archivedItems.forEach(function(c){ list.appendChild(renderCampaign(c, now, true)); });
+    }
+    card.appendChild(list);
+
+    if (cd.archivedItems.length){
+      var toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "archived-toggle";
+      toggle.textContent = showArchived
+        ? "Ocultar encerradas (" + cd.archivedItems.length + ")"
+        : "Mostrar encerradas (" + cd.archivedItems.length + ")";
+      toggle.addEventListener("click", function(){
+        state.showArchivedFor[cd.store] = !showArchived;
+        render();
+      });
+      card.appendChild(toggle);
+    }
+
+    if (state.writable){
+      var isAddingPlatform = !!state.addPlatformFor[cd.store];
+      var addPlatBtn = document.createElement("button");
+      addPlatBtn.type = "button";
+      addPlatBtn.className = "archived-toggle add-platform-toggle";
+      addPlatBtn.textContent = isAddingPlatform ? "Cancelar" : "+ Adicionar plataforma";
+      addPlatBtn.addEventListener("click", function(){
+        var wasOpen = !!state.addPlatformFor[cd.store];
+        state.addPlatformFor[cd.store] = !wasOpen;
+        if (wasOpen){
+          delete state.addPlatformDrafts[cd.store];
+          delete state.addPlatformFocus[cd.store];
+        }
+        render();
+      });
+      card.appendChild(addPlatBtn);
+
+      if (isAddingPlatform){
+        card.appendChild(renderAddPlatformForm(cd.store));
+      }
+    }
+
+    return card;
+  }
+
+  function renderAddPlatformForm(storeName){
+    var wrap = document.createElement("form");
+    wrap.className = "edit-grid add-platform-grid";
+    wrap.dataset.store = storeName;
+    var draft = state.addPlatformDrafts[storeName] || {};
+    wrap.innerHTML =
+      '<div class="field"><label>Plataforma</label><input name="platform" value="' + escapeHtml(draft.platform || "") + '" placeholder="Ex.: TikTok" required autocomplete="off" /></div>' +
+      '<div class="field"><label>Data</label><input name="date" type="date" value="' + escapeHtml(draft.date || "") + '" required /></div>' +
+      '<div class="field"><label>Hora</label><input name="time" type="time" value="' + escapeHtml(draft.time || "") + '" required /></div>' +
+      '<div class="field"><label>Nota (opcional)</label><input name="note" value="' + escapeHtml(draft.note || "") + '" placeholder="Ex.: renovar" autocomplete="off" /></div>' +
+      '<button type="button" class="budget-toggle" data-role="budgetToggle">' + (draft.budgetOpen ? "- Ocultar orçamento de anúncios" : "+ Orçamento de anúncios (opcional)") + '</button>' +
+      '<div class="budget-fields" data-role="budgetFields"' + (draft.budgetOpen ? "" : " hidden") + '>' +
+        '<div class="field"><label>Orçamento total (R$)</label><input name="budgetTotal" type="number" min="0" step="0.01" value="' + escapeHtml(draft.budgetTotal || "") + '" placeholder="Ex.: 80" /></div>' +
+        '<div class="field"><label>Gasto por dia (R$)</label><input name="dailySpend" type="number" min="0" step="0.01" value="' + escapeHtml(draft.dailySpend || "") + '" placeholder="Ex.: 20" /></div>' +
+      '</div>' +
+      '<div class="form-actions"><button type="submit" class="btn-primary">Salvar</button>' +
+      '<button type="button" class="btn-secondary" id="cancelAddPlatform">Cancelar</button></div>';
+
+    var budgetToggleBtn = wrap.querySelector('[data-role="budgetToggle"]');
+    var budgetFieldsBox = wrap.querySelector('[data-role="budgetFields"]');
+    budgetToggleBtn.addEventListener("click", function(){
+      budgetFieldsBox.hidden = !budgetFieldsBox.hidden;
+      budgetToggleBtn.textContent = budgetFieldsBox.hidden ? "+ Orçamento de anúncios (opcional)" : "- Ocultar orçamento de anúncios";
+      var d = state.addPlatformDrafts[storeName] || (state.addPlatformDrafts[storeName] = {});
+      d.budgetOpen = !budgetFieldsBox.hidden;
+    });
+
+    wrap.addEventListener("input", function(ev){
+      var name = ev.target && ev.target.name;
+      if (!name) return;
+      var d = state.addPlatformDrafts[storeName] || (state.addPlatformDrafts[storeName] = {});
+      d[name] = ev.target.value;
+    });
+    wrap.addEventListener("focusin", function(ev){
+      var name = ev.target && ev.target.name;
+      if (name) state.addPlatformFocus[storeName] = name;
+    });
+
+    wrap.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var fd = new FormData(wrap);
+      var iso = toISO(fd.get("date"), fd.get("time"));
+      if (!iso){ showBanner("Data ou hora inválida.", true); return; }
+      var budgetTotal = parseFloat(fd.get("budgetTotal"));
+      var dailySpend = parseFloat(fd.get("dailySpend"));
+      if (!(budgetTotal > 0) || !(dailySpend > 0)){ budgetTotal = null; dailySpend = null; }
+      addCampaign({
+        store: storeName,
+        platform: String(fd.get("platform")).trim(),
+        deadlineISO: iso,
+        note: String(fd.get("note") || "").trim(),
+        archived: false,
+        budgetTotal: budgetTotal,
+        dailySpend: dailySpend,
+        createdAt: new Date().toISOString()
+      });
+      delete state.addPlatformDrafts[storeName];
+      delete state.addPlatformFocus[storeName];
+      state.addPlatformFor[storeName] = false;
+      render();
+    });
+    wrap.querySelector("#cancelAddPlatform").addEventListener("click", function(){
+      delete state.addPlatformDrafts[storeName];
+      delete state.addPlatformFocus[storeName];
+      state.addPlatformFor[storeName] = false;
+      render();
+    });
+    return wrap;
+  }
+
+  function renderCampaign(c, now, isArchived){
+    var li = document.createElement("li");
+    var delta = new Date(c.deadlineISO).getTime() - now;
+    var s = isArchived ? "ok" : statusOf(delta);
+    li.className = "campaign status-" + s + (isArchived ? " is-archived" : "");
+
+    if (els.editingId === c.id){
+      li.appendChild(renderEditForm(c));
+      return li;
+    }
+
+    var row1 = document.createElement("div");
+    row1.className = "campaign-row1";
+    row1.innerHTML =
+      '<span class="platform-tag">' + escapeHtml(c.platform) + '</span>' +
+      '<span class="status-pill">' + (isArchived ? "Encerrada" : statusLabel(s)) + '</span>';
+    li.appendChild(row1);
+
+    var row2 = document.createElement("div");
+    row2.className = "campaign-row2";
+    var deadline = new Date(c.deadlineISO);
+    var countdownText = isArchived
+      ? "arquivada"
+      : (delta <= 0 ? "venceu há " + fmtDuration(delta) : "vence em " + fmtDuration(delta));
+    row2.innerHTML =
+      '<span class="countdown">' + countdownText + '</span>' +
+      '<span class="deadline-abs mono">' + shortDateFmt.format(deadline) + " " + timeFmt.format(deadline) + '</span>';
+    li.appendChild(row2);
+
+    if (c.note){
+      var note = document.createElement("div");
+      note.className = "campaign-note";
+      note.textContent = c.note;
+      li.appendChild(note);
+    }
+
+    var actions = document.createElement("div");
+    actions.className = "campaign-actions";
+
+    if (state.writable){
+      var editBtn = document.createElement("button");
+      editBtn.type = "button";
+      editBtn.textContent = "editar";
+      editBtn.addEventListener("click", function(){ els.editingId = c.id; render(); });
+      actions.appendChild(editBtn);
+
+      if (!isArchived && s === "danger"){
+        var archiveBtn = document.createElement("button");
+        archiveBtn.type = "button";
+        archiveBtn.textContent = "arquivar";
+        archiveBtn.addEventListener("click", function(){ updateCampaign(c.id, { archived: true }); });
+        actions.appendChild(archiveBtn);
+      }
+      if (isArchived){
+        var restoreBtn = document.createElement("button");
+        restoreBtn.type = "button";
+        restoreBtn.textContent = "restaurar";
+        restoreBtn.addEventListener("click", function(){ updateCampaign(c.id, { archived: false }); });
+        actions.appendChild(restoreBtn);
+      }
+
+      var delBtn = document.createElement("button");
+      delBtn.type = "button";
+      delBtn.className = "danger-action";
+      delBtn.textContent = "excluir";
+      delBtn.addEventListener("click", function(){
+        if (delBtn.dataset.confirm === "1"){
+          deleteCampaign(c.id);
+        } else {
+          delBtn.dataset.confirm = "1";
+          delBtn.textContent = "confirmar?";
+          delBtn.classList.add("confirming");
+          setTimeout(function(){
+            delBtn.dataset.confirm = "0";
+            delBtn.textContent = "excluir";
+            delBtn.classList.remove("confirming");
+          }, 3000);
+        }
+      });
+      actions.appendChild(delBtn);
+    }
+
+    li.appendChild(actions);
+    return li;
+  }
+
+  function renderEditForm(c){
+    var wrap = document.createElement("form");
+    wrap.className = "edit-grid";
+    wrap.dataset.campaignId = c.id;
+    var d = new Date(c.deadlineISO);
+    var dParts = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
+    var tParts = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit", hour12: false }).format(d);
+
+    var draft = state.editDrafts[c.id] || {};
+    var platformVal = draft.platform !== undefined ? draft.platform : c.platform;
+    var dateVal = draft.date !== undefined ? draft.date : dParts;
+    var timeVal = draft.time !== undefined ? draft.time : tParts;
+    var budgetTotalVal = draft.budgetTotal !== undefined ? draft.budgetTotal : (c.budgetTotal > 0 ? c.budgetTotal : "");
+    var dailySpendVal = draft.dailySpend !== undefined ? draft.dailySpend : (c.dailySpend > 0 ? c.dailySpend : "");
+
+    wrap.innerHTML =
+      '<div class="field"><label>Plataforma</label><input name="platform" value="' + escapeHtml(platformVal) + '" required /></div>' +
+      '<div class="field"><label>Data</label><input name="date" type="date" value="' + escapeHtml(dateVal) + '" required /></div>' +
+      '<div class="field"><label>Hora</label><input name="time" type="time" value="' + escapeHtml(timeVal) + '" required /></div>' +
+      '<div class="budget-fields">' +
+        '<div class="field"><label>Orçamento total (R$)</label><input name="budgetTotal" type="number" min="0" step="0.01" value="' + escapeHtml(budgetTotalVal) + '" placeholder="Ex.: 80" /></div>' +
+        '<div class="field"><label>Gasto por dia (R$)</label><input name="dailySpend" type="number" min="0" step="0.01" value="' + escapeHtml(dailySpendVal) + '" placeholder="Ex.: 20" /></div>' +
+      '</div>' +
+      '<div class="form-actions"><button type="submit" class="btn-primary">Salvar</button>' +
+      '<button type="button" class="btn-secondary" id="cancelEdit">Cancelar</button></div>';
+
+    wrap.addEventListener("input", function(ev){
+      var name = ev.target && ev.target.name;
+      if (!name) return;
+      var dr = state.editDrafts[c.id] || (state.editDrafts[c.id] = {});
+      dr[name] = ev.target.value;
+    });
+    wrap.addEventListener("focusin", function(ev){
+      var name = ev.target && ev.target.name;
+      if (name) state.editFocus[c.id] = name;
+    });
+
+    wrap.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var fd = new FormData(wrap);
+      var iso = toISO(fd.get("date"), fd.get("time"));
+      if (!iso) return;
+      var budgetTotal = parseFloat(fd.get("budgetTotal"));
+      var dailySpend = parseFloat(fd.get("dailySpend"));
+      if (!(budgetTotal > 0) || !(dailySpend > 0)){ budgetTotal = null; dailySpend = null; }
+      var patch = { platform: fd.get("platform").trim(), deadlineISO: iso, budgetTotal: budgetTotal, dailySpend: dailySpend };
+      if (budgetTotal !== null && !c.createdAt) patch.createdAt = new Date().toISOString();
+      updateCampaign(c.id, patch);
+      delete state.editDrafts[c.id];
+      delete state.editFocus[c.id];
+      els.editingId = null;
+    });
+    wrap.querySelector("#cancelEdit").addEventListener("click", function(){
+      delete state.editDrafts[c.id];
+      delete state.editFocus[c.id];
+      els.editingId = null;
+      render();
+    });
+    return wrap;
+  }
+
+  function toISO(dateStr, timeStr){
+    if (!dateStr || !timeStr) return null;
+    var d = new Date(dateStr + "T" + timeStr + ":00-03:00");
+    if (isNaN(d.getTime())) return null;
+    return d.toISOString();
+  }
+
+  // ---------- chamados (tickets) ----------
+
+  function updateTicketStoreOptions(){
+    var names = {};
+    Object.keys(state.stores).forEach(function(slug){
+      var m = state.stores[slug];
+      if (m && m.name) names[m.name] = true;
+    });
+    state.campaigns.forEach(function(c){ if (c.store) names[c.store] = true; });
+    state.chamados.forEach(function(t){ if (t.store) names[t.store] = true; });
+    var list = Object.keys(names).sort(function(a, b){ return a.localeCompare(b, "pt-BR"); });
+    els.ticketStoreOptions.innerHTML = list.map(function(s){
+      return '<option value="' + escapeHtml(s) + '"></option>';
+    }).join("");
+  }
+
+  function isConcluded(t){ return t.status === "concluido"; }
+
+  function ticketEmptyMessage(filter){
+    if (filter === "concluidos"){
+      return "Nenhum chamado concluído ainda.<br>Assim que você concluir um chamado, ele aparece aqui como histórico.";
+    }
+    if (filter === "recentes"){
+      return "Nenhum chamado recente por aqui.";
+    }
+    return "Nenhum chamado pendente.<br>Use “+ Novo chamado” acima ou conte pra mim no chat.";
+  }
+
+  function renderTickets(){
+    var now = Date.now();
+    updateTicketStoreOptions();
+
+    var filter = state.ticketFilter || "pendentes";
+    var list;
+
+    if (filter === "concluidos"){
+      list = state.chamados.filter(isConcluded).sort(function(a, b){
+        return new Date(b.concludedAt || b.createdAt || 0) - new Date(a.concludedAt || a.createdAt || 0);
+      });
+    } else if (filter === "recentes"){
+      list = state.chamados.filter(function(t){ return !isConcluded(t); }).sort(function(a, b){
+        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+      });
+    } else {
+      list = state.chamados.filter(function(t){ return !isConcluded(t); }).sort(function(a, b){
+        var da = deadlineStatus(a, now);
+        var db_ = deadlineStatus(b, now);
+        var aOverdue = (da && da.overdue) ? 1 : 0;
+        var bOverdue = (db_ && db_.overdue) ? 1 : 0;
+        if (aOverdue !== bOverdue) return bOverdue - aOverdue; // atrasados sempre primeiro
+
+        var au = (a.urgency >= 1 && a.urgency <= 4) ? a.urgency : 1;
+        var bu = (b.urgency >= 1 && b.urgency <= 4) ? b.urgency : 1;
+        if (au !== bu) return bu - au;
+
+        if (da && db_) return da.remainingMs - db_.remainingMs; // prazo mais próximo primeiro
+        if (da) return -1;
+        if (db_) return 1;
+        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+      });
+    }
+
+    els.ticketGrid.innerHTML = "";
+    if (!list.length){
+      els.ticketGrid.innerHTML = '<div class="empty-state">' + ticketEmptyMessage(filter) + '</div>';
+      return;
+    }
+    list.forEach(function(t){
+      els.ticketGrid.appendChild(renderTicketCard(t, now));
+    });
+  }
+
+  function renderTicketCard(t, now){
+    var level = (t.urgency >= 1 && t.urgency <= 4) ? t.urgency : 1;
+    var tasks = Array.isArray(t.tasks) ? t.tasks : [];
+
+    var concluded = isConcluded(t);
+
+    var card = document.createElement("article");
+    card.className = "store-card ticket-card urgency-" + level + (concluded ? " is-concluded" : "");
+
+    var concludeBtn = document.createElement("button");
+    concludeBtn.type = "button";
+    concludeBtn.className = "ticket-conclude-btn";
+    concludeBtn.innerHTML = concluded ? "&#8635;" : "&#10003;";
+    concludeBtn.title = concluded ? "Reabrir chamado" : "Marcar como concluído";
+    concludeBtn.setAttribute("aria-label", concludeBtn.title);
+    if (state.writable){
+      concludeBtn.addEventListener("click", function(){
+        if (concluded){
+          updateTicket(t.id, { status: "pendente", concludedAt: null });
+        } else {
+          updateTicket(t.id, { status: "concluido", concludedAt: new Date().toISOString() });
+        }
+      });
+    } else {
+      concludeBtn.disabled = true;
+    }
+    card.appendChild(concludeBtn);
+
+    var head = document.createElement("header");
+    head.className = "store-head";
+    var avatarInner = '<span class="store-avatar-fallback" style="--av-color:' + colorFor(t.store) + '">' + escapeHtml(initials(t.store)) + '</span>';
+    head.innerHTML =
+      '<span class="store-avatar">' + avatarInner + '</span>' +
+      '<div class="store-titles">' +
+        '<h2>' + escapeHtml(t.store) + '</h2>' +
+        '<span class="store-meta">' + escapeHtml(t.title) + '</span>' +
+      '</div>';
+    card.appendChild(head);
+
+    if (tasks.length){
+      var list = document.createElement("ul");
+      list.className = "ticket-task-list";
+      tasks.forEach(function(task, idx){
+        var li = document.createElement("li");
+        li.className = "ticket-task" + (task.done ? " is-done" : "");
+        var taskId = "task-" + t.id + "-" + idx;
+
+        var label = document.createElement("label");
+        label.setAttribute("for", taskId);
+        var cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.id = taskId;
+        cb.checked = !!task.done;
+        if (!state.writable) cb.disabled = true;
+        cb.addEventListener("change", function(){
+          var newTasks = tasks.map(function(tk, i2){
+            return i2 === idx ? Object.assign({}, tk, { done: cb.checked }) : tk;
+          });
+          updateTicket(t.id, { tasks: newTasks });
+        });
+        label.appendChild(cb);
+        var span = document.createElement("span");
+        span.textContent = task.text || "";
+        label.appendChild(span);
+        li.appendChild(label);
+
+        if (state.writable){
+          var rm = document.createElement("button");
+          rm.type = "button";
+          rm.className = "ticket-task-remove";
+          rm.setAttribute("aria-label", "Remover tarefa");
+          rm.innerHTML = "&times;";
+          rm.addEventListener("click", function(){
+            var newTasks = tasks.filter(function(tk, i2){ return i2 !== idx; });
+            updateTicket(t.id, { tasks: newTasks });
+          });
+          li.appendChild(rm);
+        }
+        list.appendChild(li);
+      });
+      card.appendChild(list);
+
+      var doneCount = tasks.filter(function(tk){ return tk.done; }).length;
+      var progress = document.createElement("div");
+      progress.className = "ticket-progress";
+      progress.textContent = doneCount + "/" + tasks.length + " concluídas";
+      card.appendChild(progress);
+    }
+
+    var urgencyRow = document.createElement("div");
+    urgencyRow.className = "urgency-row";
+    var segsHtml = "";
+    for (var i = 1; i <= 4; i++){
+      segsHtml += '<span class="urgency-seg' + (i <= level ? " is-lvl-" + i : "") + '"></span>';
+    }
+    urgencyRow.innerHTML =
+      '<span class="urgency-meter">' + segsHtml + '</span>' +
+      '<span class="urgency-badge" style="color:var(--urgency-' + level + ');background:var(--urgency-' + level + '-bg)">' +
+        URGENCY_LABELS[level] + '</span>';
+    card.appendChild(urgencyRow);
+
+    var ds = deadlineStatus(t, now);
+    if (ds){
+      var dLevel = ds.level;
+      var dLabel = ds.overdue ? "Atrasado" : DEADLINE_LABELS[dLevel];
+      var deadlineRow = document.createElement("div");
+      deadlineRow.className = "urgency-row";
+      var dSegsHtml = "";
+      for (var j = 1; j <= 4; j++){
+        dSegsHtml += '<span class="urgency-seg' + (j <= dLevel ? " is-lvl-" + j : "") + '"></span>';
+      }
+      deadlineRow.innerHTML =
+        '<span class="urgency-meter">' + dSegsHtml + '</span>' +
+        '<span class="urgency-badge" style="color:var(--urgency-' + dLevel + ');background:var(--urgency-' + dLevel + '-bg)">' +
+          dLabel + '</span>';
+      card.appendChild(deadlineRow);
+
+      var detail = document.createElement("div");
+      detail.className = "deadline-detail";
+      detail.textContent = (ds.overdue ? "venceu há " : "vence em ") + fmtDuration(ds.remainingMs) +
+        " · previsto p/ " + shortDateFmt.format(new Date(ds.due));
+      card.appendChild(detail);
+
+      if (ds.overdue && !concluded){
+        var alertBox = document.createElement("div");
+        alertBox.className = "ticket-overdue-alert";
+        alertBox.innerHTML = "&#9888;&#65039; Está muito atrasado! Foque nesse chamado e resolva o quanto antes.";
+        card.appendChild(alertBox);
+      }
+    }
+
+    if (state.writable){
+      var isAddingTask = !!state.addTaskFor[t.id];
+      var addTaskBtn = document.createElement("button");
+      addTaskBtn.type = "button";
+      addTaskBtn.className = "archived-toggle add-platform-toggle";
+      addTaskBtn.textContent = isAddingTask ? "Cancelar" : "+ Adicionar tarefa";
+      addTaskBtn.addEventListener("click", function(){
+        var wasOpen = !!state.addTaskFor[t.id];
+        state.addTaskFor[t.id] = !wasOpen;
+        if (wasOpen){
+          delete state.addTaskDrafts[t.id];
+          delete state.addTaskFocus[t.id];
+        }
+        render();
+      });
+      card.appendChild(addTaskBtn);
+
+      if (isAddingTask){
+        card.appendChild(renderAddTaskForm(t, tasks));
+      }
+
+      var delBtn = document.createElement("button");
+      delBtn.type = "button";
+      delBtn.className = "danger-action ticket-delete-btn";
+      delBtn.textContent = "excluir chamado";
+      delBtn.addEventListener("click", function(){
+        if (delBtn.dataset.confirm === "1"){
+          deleteTicket(t.id);
+        } else {
+          delBtn.dataset.confirm = "1";
+          delBtn.textContent = "confirmar?";
+          delBtn.classList.add("confirming");
+          setTimeout(function(){
+            delBtn.dataset.confirm = "0";
+            delBtn.textContent = "excluir chamado";
+            delBtn.classList.remove("confirming");
+          }, 3000);
+        }
+      });
+      card.appendChild(delBtn);
+    }
+
+    return card;
+  }
+
+  function renderAddTaskForm(t, tasksSnapshot){
+    var wrap = document.createElement("form");
+    wrap.className = "add-task-grid";
+    wrap.dataset.ticketId = t.id;
+    var draft = state.addTaskDrafts[t.id] || {};
+    wrap.innerHTML =
+      '<input name="task" type="text" value="' + escapeHtml(draft.task || "") + '" placeholder="Ex.: Revisar copy do anúncio" autocomplete="off" />' +
+      '<div class="form-actions">' +
+        '<button type="submit" class="btn-primary">Adicionar</button>' +
+        '<button type="button" class="btn-secondary" id="cancelAddTask">Cancelar</button>' +
+      '</div>';
+
+    wrap.addEventListener("input", function(ev){
+      var name = ev.target && ev.target.name;
+      if (!name) return;
+      var d = state.addTaskDrafts[t.id] || (state.addTaskDrafts[t.id] = {});
+      d[name] = ev.target.value;
+    });
+    wrap.addEventListener("focusin", function(ev){
+      var name = ev.target && ev.target.name;
+      if (name) state.addTaskFocus[t.id] = name;
+    });
+
+    wrap.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var fd = new FormData(wrap);
+      var text = String(fd.get("task") || "").trim();
+      if (!text) return;
+      var newTasks = tasksSnapshot.concat([{ text: text, done: false }]);
+      updateTicket(t.id, { tasks: newTasks });
+      delete state.addTaskDrafts[t.id];
+      delete state.addTaskFocus[t.id];
+      state.addTaskFor[t.id] = false;
+      render();
+    });
+    wrap.querySelector("#cancelAddTask").addEventListener("click", function(){
+      delete state.addTaskDrafts[t.id];
+      delete state.addTaskFocus[t.id];
+      state.addTaskFor[t.id] = false;
+      render();
+    });
+    return wrap;
+  }
+
+  // ---------- conversa com a planilha (Apps Script) ----------
+
+  function chamar(acao, extras){
+    var corte = AbortSignal.timeout ? AbortSignal.timeout(30000) : undefined;
+    return fetch(CONFIG.url, {
+      method: "POST",
+      signal: corte,
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(Object.assign({ acao: acao, senha: CONFIG.senha }, extras || {}))
+    }).catch(function(){
+      throw new Error("Não consegui falar com a planilha. Confira o endereço em config.js e se o script foi republicado.");
+    }).then(function(resposta){ return resposta.json(); }).then(function(dados){
+      if (!dados.ok) throw new Error(dados.erro || "A planilha recusou o pedido.");
+      return dados;
+    });
+  }
+
+  // Converte o formato da planilha (em português) pro formato interno do painel.
+  function aplicarDados(dados){
+    state.campaigns = (dados.campanhas || []).map(function(c){
+      return {
+        id: c.id, store: c.loja, platform: c.plataforma, deadlineISO: c.prazo,
+        note: c.nota || "", archived: !!c.arquivada,
+        budgetTotal: c.orcamentoTotal, dailySpend: c.gastoDiario, createdAt: c.criadoEm
+      };
+    });
+
+    var storesMap = {};
+    (dados.lojas || []).forEach(function(l){
+      storesMap[l.id] = { name: l.nome, logoDataUrl: l.logo || null };
+    });
+    state.stores = storesMap;
+
+    state.chamados = (dados.chamados || []).map(function(t){
+      return {
+        id: t.id, store: t.loja, title: t.titulo, tasks: t.tarefas || [],
+        urgency: t.urgencia, dueDateISO: t.prazo, status: t.status,
+        concludedAt: t.concluidoEm, createdAt: t.criadoEm
+      };
+    });
+
+    els.banner.hidden = true;
+    render();
+  }
+
+  function carregar(){
+    chamar("dados").then(function(r){ aplicarDados(r.dados); })
+      .catch(function(erro){ showBanner(erro.message, true); });
+  }
+
+  // ---------- persistence ----------
+
+  function setStoreLogo(storeName, url){
+    var name = String(storeName).trim();
+    if (!name) return;
+    chamar("novaLoja", { nome: name, logo: url || "" }).then(function(r){ aplicarDados(r.dados); })
+      .catch(function(erro){ showBanner(erro.message || "Não consegui salvar a loja/logo agora.", true); });
+  }
+
+  function addCampaign(data){
+    chamar("novaCampanha", {
+      loja: data.store, plataforma: data.platform, prazo: data.deadlineISO,
+      nota: data.note, orcamentoTotal: data.budgetTotal, gastoDiario: data.dailySpend
+    }).then(function(r){ aplicarDados(r.dados); })
+      .catch(function(erro){ showBanner(erro.message || "Não consegui salvar agora. Tente de novo em instantes.", true); });
+  }
+
+  function updateCampaign(id, patch){
+    var extras = { id: id };
+    if (patch.platform !== undefined) extras.plataforma = patch.platform;
+    if (patch.deadlineISO !== undefined) extras.prazo = patch.deadlineISO;
+    if (patch.note !== undefined) extras.nota = patch.note;
+    if (patch.archived !== undefined) extras.arquivada = patch.archived;
+    if (patch.budgetTotal !== undefined) extras.orcamentoTotal = patch.budgetTotal;
+    if (patch.dailySpend !== undefined) extras.gastoDiario = patch.dailySpend;
+    chamar("editarCampanha", extras).then(function(r){ aplicarDados(r.dados); })
+      .catch(function(erro){ showBanner(erro.message || "Não consegui salvar a alteração agora.", true); });
+  }
+
+  function deleteCampaign(id){
+    chamar("excluirCampanha", { id: id }).then(function(r){ aplicarDados(r.dados); })
+      .catch(function(erro){ showBanner(erro.message || "Não consegui excluir agora.", true); });
+  }
+
+  function addTicket(data){
+    chamar("novoChamado", {
+      loja: data.store, titulo: data.title, tarefas: data.tasks,
+      urgencia: data.urgency, prazo: data.dueDateISO
+    }).then(function(r){ aplicarDados(r.dados); })
+      .catch(function(erro){ showBanner(erro.message || "Não consegui salvar o chamado agora. Tente de novo em instantes.", true); });
+  }
+
+  function updateTicket(id, patch){
+    var extras = { id: id };
+    if (patch.tasks !== undefined) extras.tarefas = patch.tasks;
+    if (patch.urgency !== undefined) extras.urgencia = patch.urgency;
+    if (patch.status !== undefined) extras.status = patch.status;
+    if (patch.concludedAt !== undefined) extras.concluidoEm = patch.concludedAt;
+    if (patch.dueDateISO !== undefined) extras.prazo = patch.dueDateISO;
+    if (patch.title !== undefined) extras.titulo = patch.title;
+    chamar("editarChamado", extras).then(function(r){ aplicarDados(r.dados); })
+      .catch(function(erro){ showBanner(erro.message || "Não consegui salvar a alteração do chamado agora.", true); });
+  }
+
+  function deleteTicket(id){
+    chamar("excluirChamado", { id: id }).then(function(r){ aplicarDados(r.dados); })
+      .catch(function(erro){ showBanner(erro.message || "Não consegui excluir agora.", true); });
+  }
+
+  function showBanner(text, isWarn){
+    els.banner.textContent = text;
+    els.banner.hidden = false;
+    els.banner.classList.toggle("warn-banner", !!isWarn);
+  }
+
+  // ---------- form wiring ----------
+
+  els.openFormBtn.addEventListener("click", function(){
+    els.addForm.hidden = !els.addForm.hidden;
+    if (!els.addForm.hidden) document.getElementById("f-store").focus();
+  });
+  els.cancelFormBtn.addEventListener("click", function(){
+    els.addForm.hidden = true;
+    els.addForm.reset();
+    els.budgetFields.hidden = true;
+    els.budgetToggle.textContent = "+ Orçamento de anúncios (opcional)";
+  });
+
+  els.budgetToggle.addEventListener("click", function(){
+    els.budgetFields.hidden = !els.budgetFields.hidden;
+    els.budgetToggle.textContent = els.budgetFields.hidden ? "+ Orçamento de anúncios (opcional)" : "- Ocultar orçamento de anúncios";
+  });
+
+  els.addForm.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var fd = new FormData(els.addForm);
+    var iso = toISO(fd.get("date"), fd.get("time"));
+    if (!iso){ showBanner("Data ou hora inválida.", true); return; }
+    var budgetTotal = parseFloat(fd.get("budgetTotal"));
+    var dailySpend = parseFloat(fd.get("dailySpend"));
+    if (!(budgetTotal > 0) || !(dailySpend > 0)){ budgetTotal = null; dailySpend = null; }
+    addCampaign({
+      store: String(fd.get("store")).trim(),
+      platform: String(fd.get("platform")).trim(),
+      deadlineISO: iso,
+      note: String(fd.get("note") || "").trim(),
+      archived: false,
+      budgetTotal: budgetTotal,
+      dailySpend: dailySpend,
+      createdAt: new Date().toISOString()
+    });
+    els.addForm.reset();
+    els.addForm.hidden = true;
+    els.budgetFields.hidden = true;
+    els.budgetToggle.textContent = "+ Orçamento de anúncios (opcional)";
+  });
+
+  els.storeFilter.addEventListener("change", function(){
+    state.storeFilter = els.storeFilter.value;
+    render();
+  });
+
+  // ---------- page switcher (Radar de Campanhas / Chamados) ----------
+
+  function switchPage(page){
+    if (!PAGES[page]) return;
+    state.activePage = page;
+    if (!state.dashboardMode){
+      els.pageTitle.textContent = PAGES[page].title;
+      els.pageTagline.textContent = PAGES[page].tagline;
+      els.pageCampanhas.hidden = page !== "campanhas";
+      els.pageChamados.hidden = page !== "chamados";
+    }
+    var items = els.pageMenu.querySelectorAll(".page-menu-item");
+    for (var i = 0; i < items.length; i++){
+      items[i].classList.toggle("is-active", items[i].dataset.page === page);
+    }
+    closePageMenu();
+  }
+
+  // ---------- Modo Dashboard (tela cheia com campanhas + chamados lado a lado, pra TV) ----------
+
+  function enterDashboardMode(){
+    if (state.dashboardMode) return;
+    state.dashboardMode = true;
+    state.ticketFilterBeforeDashboard = state.ticketFilter;
+    if (state.ticketFilter !== "pendentes") setTicketFilter("pendentes");
+    document.body.classList.add("dashboard-mode");
+    els.pageCampanhas.hidden = false;
+    els.pageChamados.hidden = false;
+    els.pageTitle.textContent = "Painel Push Digital";
+    els.pageTagline.textContent = "Modo dashboard — campanhas e chamados em tempo real";
+    els.pageSwitcherBtn.disabled = true;
+    els.dashboardToggleBtn.setAttribute("aria-pressed", "true");
+    els.dashboardToggleLabel.textContent = "Sair do modo dashboard";
+    closePageMenu();
+    try {
+      var root = document.documentElement;
+      if (root.requestFullscreen) root.requestFullscreen().catch(function(){});
+    } catch (e) { /* nem todo navegador/iframe permite — o layout já cobre a tela sozinho */ }
+  }
+
+  function exitDashboardMode(){
+    if (!state.dashboardMode) return;
+    state.dashboardMode = false;
+    if (state.ticketFilterBeforeDashboard && state.ticketFilterBeforeDashboard !== state.ticketFilter){
+      setTicketFilter(state.ticketFilterBeforeDashboard);
+    }
+    state.ticketFilterBeforeDashboard = null;
+    document.body.classList.remove("dashboard-mode");
+    els.pageSwitcherBtn.disabled = false;
+    els.dashboardToggleBtn.setAttribute("aria-pressed", "false");
+    els.dashboardToggleLabel.textContent = "Modo Dashboard";
+    switchPage(state.activePage);
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+    } catch (e) {}
+  }
+
+  function toggleDashboardMode(){
+    if (state.dashboardMode) exitDashboardMode(); else enterDashboardMode();
+  }
+
+  els.dashboardToggleBtn.addEventListener("click", toggleDashboardMode);
+  document.addEventListener("fullscreenchange", function(){
+    if (!document.fullscreenElement && state.dashboardMode) exitDashboardMode();
+  });
+
+  function openPageMenu(){
+    els.pageMenu.hidden = false;
+    els.pageSwitcherBtn.setAttribute("aria-expanded", "true");
+  }
+
+  function closePageMenu(){
+    els.pageMenu.hidden = true;
+    els.pageSwitcherBtn.setAttribute("aria-expanded", "false");
+  }
+
+  els.pageSwitcherBtn.addEventListener("click", function(ev){
+    ev.stopPropagation();
+    if (els.pageMenu.hidden) openPageMenu(); else closePageMenu();
+  });
+  els.pageMenu.addEventListener("click", function(ev){
+    var btn = ev.target.closest(".page-menu-item");
+    if (!btn) return;
+    switchPage(btn.dataset.page);
+  });
+  document.addEventListener("click", function(ev){
+    if (!els.pageMenu.hidden && !els.pageSwitcherBtn.contains(ev.target) && !els.pageMenu.contains(ev.target)){
+      closePageMenu();
+    }
+  });
+  document.addEventListener("keydown", function(ev){
+    if (ev.key === "Escape"){
+      closePageMenu();
+      if (state.dashboardMode) exitDashboardMode();
+    }
+  });
+
+  els.openStoreFormBtn.addEventListener("click", function(){
+    els.addStoreForm.hidden = !els.addStoreForm.hidden;
+    if (!els.addStoreForm.hidden) document.getElementById("fs-name").focus();
+  });
+  els.cancelStoreFormBtn.addEventListener("click", function(){
+    els.addStoreForm.hidden = true;
+    els.addStoreForm.reset();
+  });
+
+  els.addStoreForm.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var fd = new FormData(els.addStoreForm);
+    var name = String(fd.get("name") || "").trim();
+    if (!name) return;
+    var logoUrl = String(fd.get("logo") || "").trim();
+    els.addStoreForm.reset();
+    els.addStoreForm.hidden = true;
+    setStoreLogo(name, logoUrl || null);
+  });
+
+  // ---------- ticket form wiring ----------
+
+  function addTaskInputRow(value){
+    var row = document.createElement("div");
+    row.className = "ticket-task-input-row";
+    row.innerHTML =
+      '<input type="text" name="task" placeholder="Ex.: Ajustar texto do anúncio" autocomplete="off" value="' + escapeHtml(value || "") + '" />' +
+      '<button type="button" class="task-input-remove" aria-label="Remover tarefa">&times;</button>';
+    row.querySelector(".task-input-remove").addEventListener("click", function(){
+      row.remove();
+    });
+    els.ticketTaskInputs.appendChild(row);
+    return row;
+  }
+
+  function resetTicketTaskInputs(){
+    els.ticketTaskInputs.innerHTML = "";
+    addTaskInputRow("");
+  }
+
+  function setUrgencySelection(level){
+    state.ticketUrgency = level;
+    var opts = els.urgencyPicker.querySelectorAll(".urgency-option");
+    for (var i = 0; i < opts.length; i++){
+      opts[i].classList.toggle("is-selected", Number(opts[i].dataset.level) === level);
+    }
+  }
+
+  els.addTaskInputBtn.addEventListener("click", function(){
+    var row = addTaskInputRow("");
+    row.querySelector("input").focus();
+  });
+
+  els.urgencyPicker.addEventListener("click", function(ev){
+    var btn = ev.target.closest(".urgency-option");
+    if (!btn) return;
+    setUrgencySelection(Number(btn.dataset.level));
+  });
+
+  function setTicketFilter(filter){
+    if (state.ticketFilter === filter) return;
+    state.ticketFilter = filter;
+    var opts = els.ticketStatusFilter.querySelectorAll(".ticket-status-btn");
+    for (var i = 0; i < opts.length; i++){
+      var isActive = opts[i].dataset.filter === filter;
+      opts[i].classList.toggle("is-active", isActive);
+      opts[i].setAttribute("aria-selected", isActive ? "true" : "false");
+    }
+    renderTickets();
+  }
+
+  els.ticketStatusFilter.addEventListener("click", function(ev){
+    var btn = ev.target.closest(".ticket-status-btn");
+    if (!btn) return;
+    setTicketFilter(btn.dataset.filter);
+  });
+
+  els.openTicketFormBtn.addEventListener("click", function(){
+    var wasHidden = els.ticketForm.hidden;
+    els.ticketForm.hidden = !wasHidden;
+    if (wasHidden){
+      els.ticketForm.reset();
+      resetTicketTaskInputs();
+      setUrgencySelection(1);
+      document.getElementById("t-store").focus();
+    }
+  });
+  els.cancelTicketFormBtn.addEventListener("click", function(){
+    els.ticketForm.hidden = true;
+    els.ticketForm.reset();
+    resetTicketTaskInputs();
+    setUrgencySelection(1);
+  });
+
+  els.ticketForm.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var fd = new FormData(els.ticketForm);
+    var store = String(fd.get("store") || "").trim();
+    var title = String(fd.get("title") || "").trim();
+    if (!store || !title) return;
+
+    var taskInputs = els.ticketTaskInputs.querySelectorAll('input[name="task"]');
+    var tasks = [];
+    for (var i = 0; i < taskInputs.length; i++){
+      var text = taskInputs[i].value.trim();
+      if (text) tasks.push({ text: text, done: false });
+    }
+
+    var dueDateStr = String(fd.get("dueDate") || "").trim();
+    var dueDateISO = dueDateStr ? toISO(dueDateStr, "23:59") : null;
+
+    addTicket({
+      store: store,
+      title: title,
+      tasks: tasks,
+      urgency: state.ticketUrgency,
+      dueDateISO: dueDateISO,
+      status: "pendente",
+      concludedAt: null,
+      createdAt: new Date().toISOString()
+    });
+
+    els.ticketForm.reset();
+    els.ticketForm.hidden = true;
+    resetTicketTaskInputs();
+    setUrgencySelection(1);
+  });
+
+  resetTicketTaskInputs();
+  setUrgencySelection(1);
+
+  // ---------- preenchimento por voz (campanha e chamado) ----------
+
+  var SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+
+  function voiceSupported(){
+    return !!SpeechRecognitionCtor && !!state.sample;
+  }
+
+  function revealVoiceButtons(){
+    // Preenchimento por voz desativado: o microfone não é liberado dentro do
+    // artefato publicado (a plataforma não expõe essa permissão pra páginas
+    // publicadas), então os botões ficam sempre ocultos. O fluxo por voz
+    // agora é: manda a descrição aqui no chat com o Claude, que adiciona
+    // a campanha/chamado direto no painel.
+    els.voiceCampaignBtn.hidden = true;
+    els.voiceTicketBtn.hidden = true;
+  }
+
+  function nowLabelForPrompt(){
+    var now = new Date();
+    return dateFmt.format(now) + " " + timeFmt.format(now);
+  }
+
+  function buildCampaignVoicePrompt(transcript){
+    return "Você extrai dados estruturados de uma frase falada em português sobre uma campanha/oferta de e-commerce, para preencher um formulário.\n" +
+      "Data e hora atuais (fuso America/Sao_Paulo): " + nowLabelForPrompt() + ".\n" +
+      "Frase transcrita: \"" + transcript + "\"\n\n" +
+      "Responda SOMENTE com um objeto JSON (sem texto antes ou depois, sem markdown) com as chaves:\n" +
+      "- store: nome da loja mencionada (string; \"\" se não disser)\n" +
+      "- platform: plataforma/tipo da campanha, ex. \"TikTok\", \"Shopee\", \"Instagram\" (string; \"\" se não disser)\n" +
+      "- date: data final da campanha, formato YYYY-MM-DD, resolvendo expressões relativas (\"amanhã\", \"sexta-feira\", \"daqui a 3 dias\") a partir da data atual acima (string; \"\" se não disser)\n" +
+      "- time: hora final, formato HH:MM em 24h (string; use \"23:59\" se disser uma data mas não um horário; \"\" se não disser nem data nem hora)\n" +
+      "- note: observação adicional, se houver (string; \"\" se não houver)\n" +
+      "- budgetTotal: orçamento total de anúncios em reais, só o número (number ou null)\n" +
+      "- dailySpend: gasto por dia em reais, só o número (number ou null)\n\n" +
+      "Não invente valores que não foram ditos — deixe \"\" ou null nesses casos.";
+  }
+
+  function buildTicketVoicePrompt(transcript){
+    return "Você extrai dados estruturados de uma frase falada em português sobre um chamado/tarefa de uma agência de e-commerce, para preencher um formulário.\n" +
+      "Data e hora atuais (fuso America/Sao_Paulo): " + nowLabelForPrompt() + ".\n" +
+      "Frase transcrita: \"" + transcript + "\"\n\n" +
+      "Responda SOMENTE com um objeto JSON (sem texto antes ou depois, sem markdown) com as chaves:\n" +
+      "- store: nome da loja mencionada (string; \"\" se não disser)\n" +
+      "- title: um resumo curto do que é o chamado (string; \"\" se não disser)\n" +
+      "- tasks: lista das tarefas separadas mencionadas (array de strings; [] se não houver)\n" +
+      "- urgency: nível de urgência de 1 a 4 (1=baixa, 2=moderada, 3=alta, 4=crítica), inferido pela linguagem usada (\"urgente\"/\"crítico\"/\"com pressa\" = 4; \"assim que der\" = 3; padrão/neutro = 2; \"sem pressa\"/\"não é urgente\" = 1) (number)\n" +
+      "- dueDate: data prevista de entrega, formato YYYY-MM-DD, resolvendo expressões relativas a partir da data atual acima (string; \"\" se não disser)\n\n" +
+      "Não invente valores que não foram ditos — deixe \"\", [] ou 2 (urgência padrão) nesses casos.";
+  }
+
+  function fillCampaignFromVoice(data){
+    data = data || {};
+    if (data.store) document.getElementById("f-store").value = data.store;
+    if (data.platform) document.getElementById("f-platform").value = data.platform;
+    if (data.date) document.getElementById("f-date").value = data.date;
+    if (data.time) document.getElementById("f-time").value = data.time;
+    if (data.note) document.getElementById("f-note").value = data.note;
+    var hasBudget = (typeof data.budgetTotal === "number" && data.budgetTotal > 0) || (typeof data.dailySpend === "number" && data.dailySpend > 0);
+    if (hasBudget){
+      els.budgetFields.hidden = false;
+      els.budgetToggle.textContent = "- Ocultar orçamento de anúncios";
+      if (typeof data.budgetTotal === "number") document.getElementById("f-budget-total").value = data.budgetTotal;
+      if (typeof data.dailySpend === "number") document.getElementById("f-budget-daily").value = data.dailySpend;
+    }
+    document.getElementById("f-store").focus();
+    showBanner("Preenchi o formulário com o que você falou — confira antes de salvar.");
+  }
+
+  function fillTicketFromVoice(data){
+    data = data || {};
+    if (data.store) document.getElementById("t-store").value = data.store;
+    if (data.title) document.getElementById("t-title").value = data.title;
+    if (data.dueDate) document.getElementById("t-due").value = data.dueDate;
+    var tasks = Array.isArray(data.tasks) ? data.tasks.map(function(t){ return String(t || "").trim(); }).filter(Boolean) : [];
+    if (tasks.length){
+      els.ticketTaskInputs.innerHTML = "";
+      tasks.forEach(function(taskText){ addTaskInputRow(taskText); });
+    }
+    var level = Number(data.urgency);
+    if (level >= 1 && level <= 4) setUrgencySelection(level);
+    document.getElementById("t-store").focus();
+    showBanner("Preenchi o chamado com o que você falou — confira antes de salvar.");
+  }
+
+  function setupVoiceCapture(cfg){
+    var recognition = null;
+    var listening = false;
+
+    function setStatus(text, recording){
+      cfg.statusEl.innerHTML = (recording ? '<span class="rec-dot" aria-hidden="true"></span>' : "") + escapeHtml(text);
+    }
+
+    function stopRecognition(){
+      if (recognition){
+        try { recognition.stop(); } catch (e) {}
+      }
+      listening = false;
+    }
+
+    function closePanel(){
+      stopRecognition();
+      cfg.panel.hidden = true;
+      cfg.panel.classList.remove("is-processing");
+      cfg.transcriptEl.textContent = "";
+    }
+
+    cfg.cancelBtn.addEventListener("click", closePanel);
+
+    cfg.btn.addEventListener("click", function(){
+      if (!voiceSupported()) return;
+      cfg.onOpen();
+      cfg.panel.hidden = false;
+      cfg.panel.classList.remove("is-processing");
+      cfg.transcriptEl.textContent = "";
+      cfg.stopBtn.disabled = false;
+      setStatus("Ouvindo… fale agora", true);
+
+      try {
+        recognition = new SpeechRecognitionCtor();
+        recognition.lang = "pt-BR";
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onresult = function(ev){
+          var finals = "", interim = "";
+          for (var i = 0; i < ev.results.length; i++){
+            var res = ev.results[i];
+            if (res.isFinal) finals += res[0].transcript + " ";
+            else interim += res[0].transcript;
+          }
+          cfg.transcriptEl.textContent = (finals + interim).trim();
+        };
+        recognition.onerror = function(ev){
+          listening = false;
+          if (ev.error === "not-allowed" || ev.error === "service-not-allowed"){
+            setStatus("Sem permissão pro microfone nesse navegador.", false);
+          } else if (ev.error === "no-speech"){
+            setStatus("Não ouvi nada — tenta de novo.", false);
+          } else {
+            setStatus("Não consegui ouvir agora — tenta de novo.", false);
+          }
+        };
+        recognition.onend = function(){ listening = false; };
+
+        recognition.start();
+        listening = true;
+      } catch (e){
+        setStatus("Não consegui usar o microfone aqui.", false);
+      }
+    });
+
+    cfg.stopBtn.addEventListener("click", function(){
+      if (listening) stopRecognition();
+      var transcript = cfg.transcriptEl.textContent.trim();
+      if (!transcript){
+        setStatus("Não peguei nenhuma fala — tenta de novo.", false);
+        return;
+      }
+      cfg.panel.classList.add("is-processing");
+      cfg.stopBtn.disabled = true;
+      setStatus("Processando…", false);
+
+      state.sample.json(cfg.buildPrompt(transcript), { modelTier: "quick", cache: false })
+        .then(function(data){
+          cfg.onFill(data);
+          closePanel();
+        })
+        .catch(function(err){
+          cfg.panel.classList.remove("is-processing");
+          cfg.stopBtn.disabled = false;
+          var code = err && err.code;
+          if (code === "not_granted" || code === "sampling_disabled" || code === "not_declared" ||
+              code === "capability_disabled" || code === "capability_removed"){
+            setStatus("Preenchimento por voz indisponível agora nessa conta.", false);
+            els.voiceCampaignBtn.hidden = true;
+            els.voiceTicketBtn.hidden = true;
+          } else if (code === "rate_limited"){
+            setStatus("Muitos pedidos agora — espera um instante e tenta de novo.", false);
+          } else if (code === "invalid_json" || code === "empty_completion"){
+            setStatus("Não entendi direito o que foi dito — tenta falar com mais detalhes.", false);
+          } else if (code === "cancelled"){
+            setStatus("Cancelado.", false);
+          } else {
+            setStatus("Não consegui processar agora — tenta de novo.", false);
+          }
+        });
+    });
+  }
+
+  setupVoiceCapture({
+    btn: els.voiceCampaignBtn,
+    panel: els.voiceCampaignPanel,
+    statusEl: els.voiceCampaignStatus,
+    transcriptEl: els.voiceCampaignTranscript,
+    stopBtn: els.voiceCampaignStopBtn,
+    cancelBtn: els.voiceCampaignCancelBtn,
+    buildPrompt: buildCampaignVoicePrompt,
+    onFill: fillCampaignFromVoice,
+    onOpen: function(){
+      els.addForm.hidden = false;
+      els.addForm.reset();
+      els.budgetFields.hidden = true;
+      els.budgetToggle.textContent = "+ Orçamento de anúncios (opcional)";
+    }
+  });
+
+  setupVoiceCapture({
+    btn: els.voiceTicketBtn,
+    panel: els.voiceTicketPanel,
+    statusEl: els.voiceTicketStatus,
+    transcriptEl: els.voiceTicketTranscript,
+    stopBtn: els.voiceTicketStopBtn,
+    cancelBtn: els.voiceTicketCancelBtn,
+    buildPrompt: buildTicketVoicePrompt,
+    onFill: fillTicketFromVoice,
+    onOpen: function(){
+      els.ticketForm.hidden = false;
+      els.ticketForm.reset();
+      resetTicketTaskInputs();
+      setUrgencySelection(1);
+    }
+  });
+
+  revealVoiceButtons();
+
+  // ---------- boot ----------
+
+  function boot(){
+    if (!CONFIG.url){
+      showBanner("Falta configurar o config.js (endereço do Apps Script e senha).", true);
+      return;
+    }
+    carregar();
+    // Como não é mais um banco em tempo real, o painel busca a planilha de
+    // novo a cada 25s — assim quem estiver com o link aberto vê as mudanças
+    // que outra pessoa fez sem precisar recarregar a página.
+    setInterval(carregar, 25000);
+  }
+
+  tickClock();
+  setInterval(tickClock, 1000);
+  setInterval(render, 15000);
+  boot();
+})();
+</script>
+
+<script>
+// Fundo decorativo: rede de pontos conectados (independente do painel acima —
+// se algo aqui falhar, o painel continua funcionando normalmente).
+(function(){
+  "use strict";
+  var canvas = document.getElementById("bgCanvas");
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext("2d");
+  var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var W = 0, H = 0;
+  var particles = [];
+  var LINK_DIST = 130;
+
+  function resize(){
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.max(1, Math.round(W * dpr));
+    canvas.height = Math.max(1, Math.round(H * dpr));
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    var count = Math.min(90, Math.max(26, Math.round((W * H) / 16000)));
+    particles = [];
+    for (var i = 0; i < count; i++){
+      var big = Math.random() < 0.22;
+      particles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.16,
+        vy: (Math.random() - 0.5) * 0.16,
+        r: big ? (2.1 + Math.random() * 1.6) : (1 + Math.random() * 0.9)
+      });
+    }
+  }
+
+  function drawFrame(){
+    ctx.clearRect(0, 0, W, H);
+
+    for (var i = 0; i < particles.length; i++){
+      var p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < -20) p.x = W + 20; else if (p.x > W + 20) p.x = -20;
+      if (p.y < -20) p.y = H + 20; else if (p.y > H + 20) p.y = -20;
+    }
+
+    for (var a = 0; a < particles.length; a++){
+      for (var b = a + 1; b < particles.length; b++){
+        var p1 = particles[a], p2 = particles[b];
+        var dx = p1.x - p2.x, dy = p1.y - p2.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < LINK_DIST){
+          var alpha = (1 - dist / LINK_DIST) * 0.16;
+          ctx.strokeStyle = "rgba(139,92,246," + alpha.toFixed(3) + ")";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (var k = 0; k < particles.length; k++){
+      var pt = particles[k];
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, pt.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(196,167,250,.55)";
+      ctx.fill();
+    }
+  }
+
+  function loop(){
+    drawFrame();
+    window.requestAnimationFrame(loop);
+  }
+
+  var resizeTimer = null;
+  window.addEventListener("resize", function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){
+      resize();
+      if (reduceMotion) drawFrame();
+    }, 150);
+  });
+
+  try {
+    resize();
+    if (reduceMotion){
+      drawFrame(); // um quadro só, sem animação contínua
+    } else {
+      window.requestAnimationFrame(loop);
+    }
+  } catch (e) { /* fundo é só decorativo — nunca deve travar o painel */ }
+})();
+</script>
+
+</body></html>
